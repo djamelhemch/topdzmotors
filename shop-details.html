@@ -289,43 +289,41 @@
 
         <!-- covering-viewer3D -->
         <section class="shop-details border-bottom">  
-            <div class="product-details-content bg-color-1">  
-                <div class="auto-container">    
-                    <div class="row align-items-center clearfix">    
-                        <!-- 3D Viewer Column (Left) -->  
-                        <div class="col-lg-7 col-md-12 col-sm-12 image-column">    
-                            <div class="product-3d-viewer-container">  
-                                <canvas id="webgl" class="product-3d-viewer"></canvas>  
-                                <div class="loading-indicator">Chargement...</div>  
-                            </div>
-                        </div>    
-                          
-                        <!-- Configurator Column (Right) -->  
-                        <div class="col-lg-5 col-md-12 col-sm-12 content-column">    
-                            <div class="configurator-panel">    
-                                <div class="control-panel">    
-                                    <h2>Choisissez votre covering</h2>    
-                                    <div class="control-group">  
-                                        <label for="carSelector">Modèle:</label>  
-                                        <select id="carSelector" class="nice-select"></select>  
-                                    </div>  
-                                    <div class="control-group">  
-                                        <label for="wrapSelector">Couleur:</label>  
-                                        <select id="wrapSelector" class="nice-select"></select>  
-                                    </div>    
-                                    <div class="control-group">    
-                                        <button id="rotateBtn">Rotation</button>    
-                                        <button id="resetBtn">Réinitialiser</button>    
-                                    </div>    
-                                    <div class="control-group rotation-slider">    
-                                        <label>Vitesse de rotation</label>    
-                                        <input type="range" min="0.001" max="0.02" step="0.001" value="0.008" id="speedSlider">    
-                                    </div>    
-                                </div>    
-                            </div>  
-                        </div>    
-                    </div>  
-                </div>  
+            <div class="product-details-content bg-color-1"> 
+                <div class="sec-title centred">
+                    <span class="top-text">Covering</span>
+                    <h2>Notre outil de prévisualisation:</h2>
+                </div> 
+                <div class="model-viewer-ui">
+                    <div class="model-viewer-container">
+                      <canvas id="webgl"></canvas>
+                      <div class="loading-indicator">Chargement...</div>
+                    </div>
+                  
+                    <div class="control-panel">
+                      <h2>Choisissez votre covering</h2>
+                  
+                      <div class="control-group">
+                        <label for="carSelector">Modèle:</label>
+                        <select id="carSelector" class="nice-select"></select>
+                      </div>
+                  
+                      <div class="control-group">
+                        <label for="wrapSelector">Couleur:</label>
+                        <select id="wrapSelector" class="nice-select"></select>
+                      </div>
+                  
+                      <div class="control-group">
+                        <button id="rotateBtn">Rotation</button>
+                        <button id="resetBtn">Réinitialiser</button>
+                      </div>
+                  
+                      <div class="control-group rotation-slider">
+                        <label for="speedSlider">Vitesse de rotation</label>
+                        <input type="range" min="0.001" max="0.02" step="0.001" value="0.008" id="speedSlider">
+                      </div>
+                    </div>
+                  </div>
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>  
             <script type="importmap">  
@@ -390,68 +388,112 @@
                     .then(data => {  
                         console.log("Parsed data:", data);
                         if (data.models && data.wraps) {
-                            populateDropdown(carSelector, data.models);  
-                            populateDropdown(wrapSelector, data.wraps);  
-                            if (data.models.length) {
-                                console.log("Loading car model:", data.models[0]);
-                                loadCar(data.models[0]);  
-                            }
+                        populateDropdown(carSelector, data.models);  
+                        populateDropdown(wrapSelector, data.wraps);  
+
+                        // Initialize nice-select after the dropdown is populated
+                        setTimeout(() => {
+                            // Re-initialize nice-select after populating the options
+                            $('.nice-select').niceSelect('destroy');
+                            $('.nice-select').niceSelect();
+                        }, 50);
+
+                        const defaultModel = "mercedes_gls_580";
+                        if (data.models.includes(defaultModel)) {
+                            carSelector.value = defaultModel;
+                            loadCar(defaultModel);
+                            console.log(`Loading default model: ${defaultModel}`);
+                        } else if (data.models.length) {
+                            carSelector.value = data.models[0];
+                            loadCar(data.models[0]);
+                            console.log(`Loading fallback model: ${data.models[0]}`);
+                        }
                         } else {
-                            console.error('Invalid data format:', data);
+                        console.error('Invalid data format:', data);
                         }
                         hideLoading();  
-                        $('.nice-select').niceSelect();  
                     })  
                     .catch(error => {  
                         console.error('Fetch error:', error);  
                         hideLoading();  
                     });
 
-                function populateDropdown(selectEl, items) {  
-                    selectEl.innerHTML = ''; // Clear existing options  
-                    items.forEach(item => {  
-                        const option = document.createElement('option');  
-                        option.value = item;  
-                        option.textContent = item;  
-                        selectEl.appendChild(option);  
-                    });  
-                    console.log(`Populated dropdown with items: ${items}`);
-                }
+                    function populateDropdown(selectEl, items) {
+                        selectEl.innerHTML = ''; // Clear existing options  
+                        items.forEach(item => {  
+                            const option = document.createElement('option');  
+                            option.value = item;  
+                            option.textContent = item;  
+                            selectEl.appendChild(option);  
+                        });  
 
-                function loadCar(modelName) {  
-                    if (carModel) scene.remove(carModel);  
-                    showLoading();  
-                    console.log(`Loading car model: ${modelName}`);
-                    loader.load(`models/${modelName}.glb`, (gltf) => {  
-                        const carGroup = new THREE.Group();  
-                        const loadedCar = gltf.scene;  
+                        console.log(`Populated dropdown with items: ${items}`);
 
-                        loadedCar.scale.set(0.1, 0.1, 0.1); // Adjust scale as needed
-                        console.log("Car model loaded and scaled.");
+                        // Ensure nice-select is initialized properly
+                        setTimeout(() => {
+                            $(selectEl).niceSelect('destroy');
+                            $(selectEl).niceSelect();
+                        }, 50);
+                        }
 
-                        const box = new THREE.Box3().setFromObject(loadedCar);  
-                        const center = new THREE.Vector3();  
-                        box.getCenter(center);  
-                        loadedCar.position.sub(center);  
+                        function loadCar(modelName) {
+                            if (carModel) scene.remove(carModel);
+                            showLoading();
 
-                        carGroup.add(loadedCar);  
-                        carModel = carGroup;  
-                        scene.add(carModel);  
+                            loader.load(`models/${modelName}.glb`, (gltf) => {
+                                const loadedCar = gltf.scene;
 
-                        const size = box.getSize(new THREE.Vector3()).length();  
-                        const fov = camera.fov * (Math.PI / 180);  
-                        const distance = size / (2 * Math.tan(fov / 2));  
-                        camera.position.set(0, 1, distance * 1.5);  
-                        controls.target.set(0, 0, 0);  
-                        controls.update();  
+                                // Get bounding box
+                                const box = new THREE.Box3().setFromObject(loadedCar);
+                                const size = box.getSize(new THREE.Vector3());
+                                const center = box.getCenter(new THREE.Vector3());
+                                
+                                // Dynamic scaling: scale model to fit a target size (e.g., radius of 1.5 units)
+                                const maxDim = Math.max(size.x, size.y, size.z);
+                                const scale = 3 / maxDim;  // Adjust '3' as your desired target size
+                                loadedCar.scale.setScalar(scale);
 
-                        applyWrap(wrapSelector.value);  
-                        hideLoading();  
-                    }, undefined, (error) => {  
-                        console.error('Model load failed:', error);  
-                        hideLoading();  
-                    });  
-                }
+                                // Recalculate box and center after scaling
+                                const newBox = new THREE.Box3().setFromObject(loadedCar);
+                                const newCenter = newBox.getCenter(new THREE.Vector3());
+
+                                // Center model in all axes, especially Y (vertical)
+                                loadedCar.position.sub(newCenter);
+
+                                // Lift slightly to account for ground level
+                                loadedCar.position.y += newBox.getSize(new THREE.Vector3()).y / 2;
+
+                                // Wrap in group
+                                const carGroup = new THREE.Group();
+                                carGroup.add(loadedCar);
+                                carModel = carGroup;
+                                scene.add(carModel);
+
+                                // Set camera dynamically
+                                const viewer = document.querySelector(".product-3d-viewer-container");
+                                const aspect = viewer.offsetWidth / viewer.offsetHeight;
+                                camera.aspect = aspect;
+                                camera.updateProjectionMatrix();
+
+                                const fov = camera.fov * (Math.PI / 180);
+                                const boundingRadius = newBox.getSize(new THREE.Vector3()).length() * 0.5;
+                                const distance = boundingRadius / Math.tan(fov / 2);
+
+                                camera.position.set(0, boundingRadius * 0.6, distance * 1.2); // Balanced Y and Z
+                                controls.target.set(0, 0, 0);
+                                controls.minDistance = distance * 0.5;
+                                controls.maxDistance = distance * 2.5;
+                                controls.update();
+
+                                applyWrap(wrapSelector.value);
+                                hideLoading();
+                            }, undefined, (error) => {
+                                console.error('Model load failed:', error);
+                                hideLoading();
+                            });
+                        }
+
+
 
                 function applyWrap(wrapName) {
                     if (!carModel) return;
@@ -483,9 +525,23 @@
                 });
 
                 resetBtn.addEventListener('click', () => {
-                    controls.reset();
+                    if (!carModel) return;
+
+                    // Reset model rotation
                     carModel.rotation.set(0, 0, 0);
-                    console.log("Model reset to initial position.");
+
+                    // Reset camera using same logic as loadCar
+                    const box = new THREE.Box3().setFromObject(carModel);
+                    const size = box.getSize(new THREE.Vector3());
+                    const fov = camera.fov * (Math.PI / 180);
+                    const modelRadius = size.length() * 0.5;
+                    const distance = modelRadius / Math.sin(fov / 2);
+
+                    camera.position.set(0, size.y * 0.5, distance * 0.8);
+                    controls.target.set(0, 0, 0);
+                    controls.update();
+
+                    console.log("Model and camera reset to default position.");
                 });
 
                 speedSlider.addEventListener('input', () => {
@@ -519,136 +575,288 @@
                         console.log("Touch moved, model rotated.");
                     }
                 });
+                canvas.addEventListener('resize', () => {
+                    // Update camera aspect ratio
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
 
+                    // Update the renderer size
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+
+                    console.log("Window resized, updated camera and renderer.");
+
+                    // Recalculate car model positioning based on new window size
+                    if (carModel) {
+                        const box = new THREE.Box3().setFromObject(carModel);
+                        const size = box.getSize(new THREE.Vector3());
+                        const fov = camera.fov * (Math.PI / 180);
+                        const distance = size.length() / (2 * Math.tan(fov / 2));
+                        camera.position.set(0, size.y, distance * 1.2);  // Update camera position
+                    }
+                });
                 // Initialize
+
                 animate();
-                carSelector.addEventListener('change', () => {
-                    console.log(`Car selector changed: ${carSelector.value}`);
-                    loadCar(carSelector.value);
+
+                $('#carSelector').on('change', function () {
+                    const selectedModel = $(this).val();
+                    console.log(`Car selector changed: ${selectedModel}`);
+                    loadCar(selectedModel);
                 });
-                wrapSelector.addEventListener('change', () => {
-                    console.log(`Wrap selector changed: ${wrapSelector.value}`);
-                    applyWrap(wrapSelector.value);
+
+                $('#wrapSelector').on('change', function () {
+                    const selectedWrap = $(this).val();
+                    console.log(`Wrap selector changed: ${selectedWrap}`);
+                    applyWrap(selectedWrap);
                 });
+                console.log("Renderer size:", renderer.domElement.width, renderer.domElement.height);
+                console.log("Canvas size:", canvas.offsetWidth, canvas.offsetHeight);
+                console.log("Camera position:", camera.position);
+                console.log("Scene children:", scene.children);
             </script>
 
-            <style>  
-            /* New responsive styles */    
-            /* Dropdown Fix & Enhancements */  
-            .nice-select {    
-                background-color: #fff; /* White background for visibility */    
-                border: 1px solid #e8e8e8; /* Light border */    
-                border-radius: 5px; /* Rounded corners */    
-                padding: 10px; /* Padding for better touch targets */    
-                color: #333; /* Dark text color */    
-                font-size: 14px; /* Font size */    
-                cursor: pointer; /* Pointer cursor */    
-                height: 40px; /* Set a height for better visibility */  
-                margin-bottom: 15px; /* Add margin for spacing */  
-            }  
-            
-            .nice-select:hover {    
-                border-color: #ff6b6b; /* Change border color on hover */    
-            }  
-            
-            .nice-select.open:after {  
-                border-color: #ff6b6b; /* Match highlight color */  
-            }  
-            
-            .nice-select .option {    
-                padding: 10px; /* Padding for options */    
-                color: #333; /* Dark text color for options */    
-            }  
-            
-            .nice-select .option:hover {    
-                background-color: #f6f6f6; /* Highlight option on hover */    
-            }  
-            
-            .nice-select .option.selected {  
-                font-weight: 600; /* Stronger selected text */  
-            }  
-            
-            /* 3D Viewer Frame Enhancements */  
-            .product-3d-viewer-container {  
-                position: relative;  
-                width: 100%;  
-                padding-bottom: 71%; /* 16:9 aspect ratio */  
-                border: 3px solid #ff6b6b; /* Thicker border */  
-                border-radius: 12px; /* Rounded corners */  
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Subtle shadow */  
-                overflow: hidden;  
-                height: 400px; /* Set a fixed height for the viewer */  
-            }  
-            
-            #webgl {  
-                position: absolute;  
-                top: 0;  
-                left: 0;  
-                width: 100%;  
-                height: 100%;  
-                background: #f0f0f0; /* Fallback background color */  
-            }  
-            
-            /* Loading Indicator */  
-            .loading-indicator {  
-                position: absolute;  
-                top: 50%;  
-                left: 50%;  
-                transform: translate(-50%, -50%);  
-                font-size: 18px;  
-                color: #333;  
-                display: none; /* Initially hidden */  
-            }  
-            
-            .loading-indicator.loading {  
-                display: block; /* Show when loading */  
-            }  
-            
-            /* Responsive Adjustments */  
-            @media (max-width: 768px) {  
-                .product-3d-viewer-container {  
-                    padding-bottom: 100%; /* Square on mobile */  
-                    border-radius: 8px; /* Smaller radius on mobile */  
-                    height: 300px; /* Adjust height for mobile */  
-                }  
-            }  
-            
-            /* Control Panel Styling */  
-            .control-panel {  
-                background: #fff; /* White background for better contrast */  
-                border: 1px solid #e8e8e8;  
-                padding: 20px;  
-                border-radius: 12px;  
-                box-shadow: 0 2px 10px rgba(0,0,0,0.08);  
-            }  
-            
-            .control-group label {  
-                color: #333; /* Darker label text */  
-                font-weight: 500;  
-            }  
-            
-            select, input[type="range"] {  
-                background: #fff; /* Ensure white background */  
-                color: #333;  
-                border-color: #e8e8e8;  
-            }  
-            
-            button {  
-                background: #ff6b6b;  
-                color: white;  
-                border: none;  
-                padding: 10px 20px;  
-                border-radius: 6px;  
-                font-weight: 500;  
-                transition: all 0.3s;  
-            }  
-            
-            button:hover {  
-                background: #ff5252;  
-                transform: translateY(-1px);  
-                box-shadow: 0 3px 6px rgba(0,0,0,0.1);  
-            }
-                </style>
+<style>
+    /* Layout & Containers */
+    .model-viewer-ui {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      gap: 20px;
+      box-sizing: border-box;
+      border: 3px solid #bc1622;
+      padding: 20px;
+    }
+    
+    .model-viewer-container {
+      flex: 7;
+      position: relative;
+      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    #webgl {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+      background-color: #f0f0f0;
+    }
+    
+    .loading-indicator {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      color: #333;
+      display: none;
+      z-index: 10;
+    }
+    
+    .control-panel {
+      flex: 3;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e8e8e8;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+    
+    /* Typography */
+    .control-panel h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 16px;
+        }
+
+    
+    .control-group label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+        }
+    
+    /* Buttons */
+    .control-group button {
+        background-color: #ff5252;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        min-width: 130px;
+        box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
+    }
+    
+    .control-group button:hover {
+        background-color: #e84141;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(188, 22, 34, 0.4);
+        }
+    /* Button Group Spacing */
+    .control-group button + button {
+        margin-left: 10px;
+        }
+    /* Nice Select Styling */
+    .control-group select, input, button {
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: #1f1f1f;
+    }
+
+    /* Dropdown (Nice Select) */
+    .nice-select {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        border: 2px solid #ff5252; /* Fixed bold border */
+        border-radius: 12px;
+        padding: 0 16px;
+        height: 46px;
+        line-height: 46px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #2b2b2b;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease; /* No border color change */
+        box-shadow: none;
+    }
+
+    .nice-select:hover {
+    box-shadow: 0 0 0 4px rgba(255, 82, 82, 0.15); /* Soft glow, no border change */
+    }
+
+    .nice-select::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border: solid #ff5252;
+    border-width: 0 2px 2px 0;
+    transform: translateY(-50%) rotate(45deg);
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    }
+
+    .nice-select.open::after {
+    border-color: #bc1622;
+    transform: translateY(-50%) rotate(-135deg);
+    }
+
+    .nice-select .list {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 2px solid #ff5252;
+    border-radius: 10px;
+    background: #fff;
+    margin-top: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .nice-select .option {
+    padding: 14px 18px;
+    transition: background 0.2s;
+    font-weight: 500;
+    color: #2b2b2b;
+    }
+
+    .nice-select .option:hover {
+    background: #ffeaea;
+    }
+
+    .nice-select .option.selected {
+        background-color: #ffeded;
+        color: #ff5252;
+        font-weight: 700;
+    }
+
+    /* Optional scrollbar styling */
+    .nice-select .list::-webkit-scrollbar {
+        width: 6px;
+    }
+    .nice-select .list::-webkit-scrollbar-thumb {
+        background-color: #bbb;
+        border-radius: 4px;
+        }
+    /* Form Elements */
+    select,
+    input[type="range"] {
+        width: 100%;
+        background: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 8px;
+    }
+    
+    
+    /* Slider Styling */
+    .rotation-slider input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 3px;
+        outline: none;
+        margin-top: 10px;
+        }
+
+.rotation-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff5252;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(255, 82, 82, 0.4);
+  transition: background 0.3s;
+}
+
+.rotation-slider input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff5252;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(255, 82, 82, 0.4);
+}
+    
+    /* Responsive Behavior */
+    @media (max-width: 768px) {
+      .model-viewer-ui {
+        flex-direction: column;
+      }
+    
+      .model-viewer-container,
+      .control-panel {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+    }
+    </style>
+    
             <div class="product-discription">
                 <div class="auto-container">
                     <div class="tabs-box">
