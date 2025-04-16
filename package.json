@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "three": "^0.175.0"
+  },
+  "name": "topdzmotors",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djamelhemch/topdzmotors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djamelhemch/topdzmotors/issues"
+  },
+  "homepage": "https://github.com/djamelhemch/topdzmotors#readme",
+  "description": ""
+}
