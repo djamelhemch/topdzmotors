@@ -450,31 +450,84 @@
                                 
                                 // Dynamic scaling: scale model to fit a target size (e.g., radius of 1.5 units)
                                 const maxDim = Math.max(size.x, size.y, size.z);
-                                const scale = 3 / maxDim;  // Adjust '3' as your desired target size
+                                const scale = 2 / maxDim;  // Adjust '3' as your desired target size
                                 loadedCar.scale.setScalar(scale);
 
                                 // Recalculate box and center after scaling
                                 const newBox = new THREE.Box3().setFromObject(loadedCar);
                                 const newCenter = newBox.getCenter(new THREE.Vector3());
-
+                                
                                 // Center model in all axes, especially Y (vertical)
                                 loadedCar.position.sub(newCenter);
 
                                 // Lift slightly to account for ground level
                                 loadedCar.position.y += newBox.getSize(new THREE.Vector3()).y / 2;
 
+                                loadedCar.position.x -= 0.45;
                                 // Wrap in group
                                 const carGroup = new THREE.Group();
                                 carGroup.add(loadedCar);
                                 carModel = carGroup;
                                 scene.add(carModel);
+                                // Create a pedestal  
+                                // const pedestalGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);  
+                                // const pedestalMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });  
+                                // const pedestal = new THREE.Mesh(pedestalGeometry, pedestalMaterial);  
+                                // pedestal.position.y = -0.05; // Adjust height as needed  
+                                // scene.add(pedestal);  
+                            
+                                // loading garage background  
+                                // const textureLoader = new THREE.TextureLoader();
+                                // textureLoader.load('textures/topdz_garage.png', (texture) => {
+                                //     texture.wrapS = THREE.RepeatWrapping;
+                                //     texture.wrapT = THREE.ClampToEdgeWrapping; // Don't stretch vertically
+                                //     texture.repeat.set(2, 1); // Repeat horizontally only
+
+                                //     const radius = 6;
+                                //     const height = 2.5;
+
+                                //     const garageGeometry = new THREE.CylinderGeometry(radius, radius, height, 64, 1, true);
+                                //     const garageMaterial = new THREE.MeshBasicMaterial({
+                                //         map: texture,
+                                //         side: THREE.BackSide,
+                                //     });
+
+                                //     const garageBackdrop = new THREE.Mesh(garageGeometry, garageMaterial);
+                                //     garageBackdrop.rotation.y = Math.PI; // Face open side toward camera
+                                //     garageBackdrop.position.y = height / 2;
+                                //     scene.add(garageBackdrop);
+                                // });
+
+                                //loading the floor texture
+                                textureLoader.load('textures/floor_concrete.jpg', (floorTexture) => {
+                                    floorTexture.wrapS = THREE.RepeatWrapping;
+                                    floorTexture.wrapT = THREE.RepeatWrapping;
+                                    floorTexture.repeat.set(4, 4);
+
+                                    const floorGeometry = new THREE.PlaneGeometry(10, 10);
+                                    const floorMaterial = new THREE.MeshStandardMaterial({ map: floorTexture });
+                                    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+                                    floor.rotation.x = -Math.PI / 2;
+                                    floor.position.y = -0.051;
+                                    scene.add(floor);
+                                });
+
+                                // Lighting  
+                                const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light  
+                                scene.add(ambientLight);  
+                            
+                                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);  
+                                directionalLight.position.set(5, 5, 5);  
+                                scene.add(directionalLight);
+
 
                                 // Set camera dynamically
-                                const viewer = document.querySelector(".product-3d-viewer-container");
+                                const viewer = document.querySelector(".model-viewer-container");
+                                console.log(viewer);
                                 const aspect = viewer.offsetWidth / viewer.offsetHeight;
                                 camera.aspect = aspect;
                                 camera.updateProjectionMatrix();
-
+                                
                                 const fov = camera.fov * (Math.PI / 180);
                                 const boundingRadius = newBox.getSize(new THREE.Vector3()).length() * 0.5;
                                 const distance = boundingRadius / Math.tan(fov / 2);
@@ -484,7 +537,8 @@
                                 controls.minDistance = distance * 0.5;
                                 controls.maxDistance = distance * 2.5;
                                 controls.update();
-
+                                
+                                
                                 applyWrap(wrapSelector.value);
                                 hideLoading();
                             }, undefined, (error) => {
