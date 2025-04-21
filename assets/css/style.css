@@ -211,11 +211,11 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .handle-preloader .animation-preloader .spinner{
-  animation: spinner 1s infinite linear;
-  border-radius: 50%;
+  animation: spinner 1s infinite linear;  
+  display: block;  
+  margin: 0 auto 45px auto;  
+  width: 150px;  
   height: 150px;
-  margin: 0 auto 45px auto;
-  width: 150px;
 }
 
 .handle-preloader .animation-preloader .txt-loading {
@@ -257,7 +257,13 @@ h1,h2,h3,h4,h5,h6{
   top: 0;
   width: calc(50% + 1px);
 }
-
+.animation-preloader .custom-spinner {  
+  animation: spinner 1s infinite linear;  
+  display: block;  
+  margin: 0 auto 45px auto;  
+  width: 150px;  
+  height: 150px;  
+}
 .preloader .loaded .animation-preloader {
   opacity: 0;
   transition: 0.3s ease-out;
@@ -277,11 +283,15 @@ h1,h2,h3,h4,h5,h6{
 }
 
 /* AnimaciÃ³n del preloader */
-@keyframes spinner {
+@keyframes spinner {  
+  0% { transform: rotate(0deg); }  
+  100% { transform: rotate(360deg); }  
+}
+/* @keyframes spinner {
   to {
     transform: rotateZ(360deg);
   }
-}
+} */
 @keyframes letters-loading {
   0%,
   75%,
@@ -823,7 +833,67 @@ img {
   display: none;
 }
 
+/** Navbar **/
 
+/* Base link styles */
+.navigation li a {
+  color: #a5a5a5; /* Light gray/white */
+  text-decoration: none;
+  padding: 10px 15px;
+  display: inline-block;
+  position: relative;
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border-radius: 6px;
+}
+
+/* Hover effect with background and underline animation */
+.navigation li a::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 6px;
+  width: 0;
+  height: 3px;
+  background-color: #fff; /* White underline */
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.navigation li a:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navigation li a:hover::after {
+  width: calc(100% - 30px); /* Full width minus horizontal padding */
+}
+
+/* Active page styles */
+.navigation li.active-page > a {
+  color: #fff;
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+}
+
+.navigation li.active-page > a::after {
+  width: calc(100% - 30px);
+  height: 4px;
+  background-color: #fff;
+  bottom: 5px;
+  border-radius: 3px;
+}
+
+/* Active page hover */
+.navigation li.active-page > a:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
+.navigation li.active-page > a:hover::after {
+  background-color: #fff;
+}
 /** main-menu **/
 
 .main-menu{

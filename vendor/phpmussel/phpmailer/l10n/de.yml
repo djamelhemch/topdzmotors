@@ -1,0 +1,44 @@
+##\
+# This file is a part of the phpMussel\Plugin-PHPMailer package.
+# Homepage: https://phpmussel.github.io/
+#
+# PHPMUSSEL COPYRIGHT 2013 AND BEYOND BY THE PHPMUSSEL TEAM.
+#
+# License: GNU/GPLv2
+# @see LICENSE.txt
+#
+# This file: German language data (last modified: 2024.04.19).
+#
+# Regarding translations: My native language is English. Because this is a free
+# and open-source hobby project which generates zero income, and translatable
+# content is likely to change as the features and functionality supported by
+# the project changes, it doesn't make sense for me to spend money for
+# translations. Because I'm the sole author/developer/maintainer for the
+# project and I'm not a ployglot, any translations I produce are very likely to
+# contain errors. Sorry, but realistically, that won't ever change. If you find
+# any such errors/typos/mistakes/etc, your assistance to correct them would be
+# very much appreciated. Pull requests are invited and encouraged. Otherwise,
+# if you find these errors too much to handle, just stick with the original
+# English source. If a translation is irredeemably incomprehensible, let me
+# know which, and I can delete it. If you're not sure how to perform pull
+# requests, ask. I can help.
+##/
+
+config:
+ phpmailer: "Konfiguration für PHPMailer (wird für die Zwei-Faktor-Authentifizierung und für E-Mail-Benachrichtigungen verwendet)."
+ phpmailer_add_reply_to_address: "Die Antwortadresse, die beim Senden von E-Mails über SMTP verwendet werden soll."
+ phpmailer_add_reply_to_name: "Der Name für der Antwort, die beim Senden von E-Mails über SMTP verwendet werden soll."
+ phpmailer_enable_notifications: "Wenn Sie per E-Mail benachrichtigt werden möchten, wenn ein Upload blockiert ist, geben Sie hier die E-Mail-Adresse des Empfängers an."
+ phpmailer_enable_two_factor: "Diese Direktive bestimmt, ob 2FA für Frontend-Konten verwendet werden soll."
+ phpmailer_event_log: "Eine Datei zum Protokollieren aller Ereignisse in Bezug auf PHPMailer. Geben Sie einen Dateinamen an oder lassen Sie die Option zum Deaktivieren leer."
+ phpmailer_host: "Der SMTP-Host zum Senden von ausgehende E-Mails."
+ phpmailer_password: "Das Passwort zum Senden von E-Mails über SMTP."
+ phpmailer_port: "Die Portnummer zum Senden von ausgehende E-Mails. Standardeinstellung = 587."
+ phpmailer_set_from_address: "Die Absenderadresse, die beim Senden von E-Mails über SMTP verwendet werden soll."
+ phpmailer_set_from_name: "Der Name des Absenders, der beim Senden von E-Mails über SMTP verwendet werden soll."
+ phpmailer_skip_auth_process: "Wenn Sie diese Direktive auf <code>true</code> setzen, wird PHPMailer angewiesen, den normalen Authentifizierungsprozess zu überspringen, der normalerweise beim Senden von E-Mails über SMTP auftritt. Dies sollte vermieden werden, da das Überspringen dieses Prozesses ausgehende E-Mails MITM-Angriffen aussetzen kann. Dies kann jedoch in Fällen erforderlich sein, in denen dieser Prozess die Verbindung von PHPMailer zu einem SMTP-Server verhindert."
+ phpmailer_smtp_auth: "Diese Direktive bestimmt, ob SMTP-Sitzungen authentifiziert werden sollen (sollte normalerweise in Ruhe gelassen werden)."
+ phpmailer_smtp_secure: "Das Protokoll zum Senden von E-Mails über SMTP (TLS oder SSL)."
+ phpmailer_username: "Der Benutzername zum Senden von E-Mails über SMTP."
+response:
+ Email successfully sent to %s: "E-Mail wurde erfolgreich an „%s“ gesendet."

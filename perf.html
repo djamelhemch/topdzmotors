@@ -36,13 +36,70 @@
     <div class="boxed_wrapper">
 
 
-        <!-- preloader -->
-        <div class="loader-wrap">
+         <!-- preloader -->
+         <div class="loader-wrap">
             <div class="preloader">
-                <div class="preloader-close">Fermer</div>
+                <div class="preloader-close">Fermer x</div>
                 <div id="handle-preloader" class="handle-preloader">
                     <div class="animation-preloader">
-                        <div class="spinner"></div>
+                        <svg class="custom-spinner" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 118.61 118.6" width="150" height="150">
+                            <defs>
+                              <style>
+                                .cls-1 {
+                                  fill: url(#linear-gradient-2);
+                                  mix-blend-mode: lighten;
+                                  opacity: .43;
+                                }
+                                .cls-2 {
+                                  fill: #fff;
+                                }
+                                .cls-3 {
+                                  isolation: isolate;
+                                }
+                                .cls-4 {
+                                  fill: #222221;
+                                }
+                                .cls-5 {
+                                  fill: url(#linear-gradient);
+                                }
+                              </style>
+                              <linearGradient id="linear-gradient" x1="17.79" y1="32.12" x2="117.02" y2="97.1" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#a92d32"/>
+                                <stop offset=".35" stop-color="#a02a2d"/>
+                                <stop offset="1" stop-color="#942628"/>
+                              </linearGradient>
+                              <linearGradient id="linear-gradient-2" x1="59.3" y1="69.92" x2="59.3" y2="0" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#fff"/>
+                                <stop offset="0" stop-color="#fff" stop-opacity=".96"/>
+                                <stop offset=".05" stop-color="#fff" stop-opacity=".78"/>
+                                <stop offset=".09" stop-color="#fff" stop-opacity=".61"/>
+                                <stop offset=".14" stop-color="#fff" stop-opacity=".47"/>
+                                <stop offset=".2" stop-color="#fff" stop-opacity=".34"/>
+                                <stop offset=".25" stop-color="#fff" stop-opacity=".23"/>
+                                <stop offset=".32" stop-color="#fff" stop-opacity=".15"/>
+                                <stop offset=".4" stop-color="#fff" stop-opacity=".08"/>
+                                <stop offset=".49" stop-color="#fff" stop-opacity=".03"/>
+                                <stop offset=".63" stop-color="#fff" stop-opacity="0"/>
+                                <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                              </linearGradient>
+                            </defs>
+                            <g class="cls-3">
+                              <g id="Layer_1" data-name="Layer 1">
+                                <rect class="cls-5" x="0" y="0" width="118.61" height="118.61" rx="27.16" ry="27.16"/>
+                                <g>
+                                  <path class="cls-2" d="M53.44,86.99c-.59.94-1.21,1.86-1.87,2.75-.95,1.25-1.94,2.5-3.02,3.64-.15-.04-.29-.09-.44-.14-.56-.18-1.19,0-1.55.46l-4.15,5.24c-1.06,1.35-2.99,1.7-4.46.8l-4.82-2.94c-1.48-.9-2.05-2.76-1.33-4.33l2.76-6.09c.25-.55.12-1.17-.3-1.58-1.74-1.71-3.31-3.61-4.66-5.64-.33-.49-.93-.74-1.5-.6l-6.51,1.58c-1.68.41-3.4-.5-4.01-2.12l-1.99-5.29c-.61-1.62.09-3.44,1.62-4.23l5.94-3.11c.52-.27.8-.84.73-1.43-.04-.36-.09-.73-.12-1.09-.06-.59-.47-1.08-1.05-1.23l-6.48-1.66c-1.68-.42-2.77-2.03-2.54-3.75l.73-5.61c.22-1.71,1.69-2.99,3.41-2.98l1.69.02c2.02,2.86,5.14,4.74,8.03,6.6,1.32.78,2.68,1.5,4.08,2.15-.13,1.06-.19,2.15-.19,3.25,0,13.4,9.43,24.59,22.01,27.31Z"/>
+                                  <path class="cls-2" d="M93.38,89.81l-4.02,3.96c-1.23,1.22-3.18,1.32-4.53.25l-5.24-4.16c-.46-.36-1.11-.39-1.61-.09-2.08,1.27-4.28,2.34-6.6,3.17-.55.2-.93.72-.94,1.32l-.03,6.69c0,1.72-1.31,3.18-3.03,3.37l-5.61.65c-1.71.2-3.31-.91-3.72-2.6l-1.57-6.51c-.14-.58-.63-1-1.22-1.06-.95-.1-1.9-.25-2.82-.43.64-.94,1.25-1.9,1.84-2.84.78-1.32,1.5-2.67,2.15-4.07.97.1,1.95.16,2.94.16,13.46,0,24.69-9.52,27.34-22.18,1.04.64,2.05,1.32,3.03,2.04,1.41,1.07,2.82,2.19,4.07,3.44-.47.1-.85.43-1.02.89-.87,2.31-1.96,4.51-3.25,6.56-.32.5-.3,1.14.06,1.61l4.09,5.3c1.06,1.37.93,3.31-.3,4.53Z"/>
+                                  <path class="cls-2" d="M104.93,62.36l-.73,5.61c-.22,1.71-1.69,2.99-3.41,2.98h-1.57c-2.02-2.63-4.96-4.41-7.7-6.17-1.41-.83-2.87-1.6-4.37-2.28.1-.93.15-1.86.15-2.81,0-13.35-9.37-24.52-21.9-27.28.65-1.06,1.35-2.09,2.08-3.08,1.03-1.34,2.09-2.69,3.29-3.9h0c.48.07.97-.11,1.27-.5l1.4-1.77.71-.91,2.03-2.57c1.07-1.35,2.99-1.7,4.47-.8l4.82,2.94c1.48.9,2.05,2.76,1.33,4.34l-2.76,6.08c-.25.55-.12,1.17.3,1.58,1.74,1.72,3.31,3.61,4.66,5.65.33.48.92.74,1.5.59l6.51-1.57c1.68-.42,3.4.49,4.01,2.11l1.99,5.29c.61,1.62-.09,3.44-1.62,4.24l-5.94,3.1c-.52.27-.8.84-.73,1.43.04.36.09.73.12,1.09.06.59.47,1.08,1.04,1.23l6.49,1.66c1.68.42,2.77,2.03,2.54,3.75Z"/>
+                                  <path class="cls-2" d="M66.84,24.36c-.72,1.05-1.39,2.12-2.07,3.17-.83,1.42-1.6,2.87-2.29,4.38-1.02-.11-2.06-.17-3.12-.17-13.3,0-24.43,9.29-27.25,21.74-.96-.6-1.9-1.24-2.8-1.9-1.57-1.2-3.16-2.46-4.5-3.9.46-.1.84-.43,1.01-.88.87-2.31,1.96-4.51,3.25-6.56.32-.5.3-1.14-.06-1.61l-4.09-5.3c-1.06-1.37-.93-3.31.3-4.53l4.02-3.96c1.23-1.22,3.18-1.32,4.53-.25l5.24,4.16c.46.36,1.1.4,1.61.09,2.08-1.27,4.28-2.34,6.6-3.17.55-.2.93-.72.94-1.31l.03-6.7c0-1.72,1.31-3.18,3.03-3.37l5.61-.65c1.71-.2,3.31.92,3.71,2.6l1.57,6.51c.14.58.63,1,1.22,1.06,1.19.13,2.35.32,3.49.56Z"/>
+                                  <path class="cls-4" d="M59.36,72.27c-.74,3.86-2.09,7.62-3.88,11.13h0c-10.43-1.76-18.84-10.25-20.02-21.28-.15-1.38-.18-2.75-.09-4.1,3.7,1.39,7.58,2.31,11.48,2.65,0,.07,0,.15.02.22.69,6.49,6.14,11.3,12.5,11.38Z"/>
+                                  <path class="cls-4" d="M61.03,35.36c-1.38,3.7-2.31,7.58-2.64,11.49h0c-.08,0-.15,0-.22.02-6.48.69-11.29,6.14-11.37,12.5-3.86-.74-7.62-2.09-11.14-3.89,1.76-10.43,10.25-18.84,21.29-20.03,1.38-.15,2.75-.18,4.09-.09Z"/>
+                                  <path class="cls-4" d="M83.39,63.57c-1.76,10.43-10.25,18.85-21.28,20.03-1.38.15-2.76.18-4.1.09,1.39-3.7,2.32-7.58,2.65-11.48.08,0,.15,0,.22-.02,6.49-.69,11.31-6.15,11.38-12.51,3.86.75,7.62,2.09,11.13,3.89Z"/>
+                                  <path class="cls-4" d="M83.69,61.04c-3.7-1.39-7.57-2.32-11.48-2.65,0-.08,0-.15-.02-.22-.69-6.47-6.14-11.29-12.5-11.37.74-3.86,2.09-7.62,3.89-11.14,10.43,1.75,18.85,10.25,20.03,21.28.15,1.38.18,2.76.09,4.1Z"/>
+                                </g>
+                                <path class="cls-1" d="M118.61,27.16v26.89c-14.31,9.82-33.89,15.87-55.47,15.87C37.39,69.92,14.51,61.31,0,47.95v-20.79C0,12.16,12.16,0,27.16,0h64.29c15,0,27.16,12.16,27.16,27.16Z"/>
+                              </g>
+                            </g>
+                          </svg>
                         <div class="txt-loading">
                             <span data-text-preloader="T" class="letters-loading">
                                 T
@@ -129,7 +186,7 @@
                                     <li><a href="covering.html">Covering</a></li> 
                                     <li><a href="detailing.html">Detailling</a></li> 
                                     <li><a href="lavage.html">Lavage</a></li> 
-                                    <li><a href="perf.html">Performance</a></li> 
+                                    <li class="active-page"><a href="perf.html">Performance</a></li> 
                                     <li><a href="gallery.html">Galerie photo</a></li> 
                                     <li class="dropdown"><a href="index.html">Blog</a>
                                         <ul>
@@ -141,21 +198,7 @@
                                 </ul>
                             </div>
                         </nav>
-                        <div class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-search"></i></button>
-                                <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
-                                    <div class="form-container">
-                                        <form method="post" action="blog.html">
-                                            <div class="form-group">
-                                                <input type="search" name="search-field" value="" placeholder="Search...." required="">
-                                                <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="btn-box">
                         <a href="index.html" class="theme-btn">Devis<i class="far fa-angle-double-right"></i></a>
@@ -227,15 +270,15 @@
 
 
         <!-- Page Title -->
-        <section class="page-title centred" style="background-image: url(assets/img/banner.webp);">
+        <section class="page-title centred" style="background-image: url(assets/images/background/page-title.jpg);">
             <div class="auto-container">
                 <div class="content-box">
                     <div class="title">
-                        <h1>Service Covering</h1>
+                        <h1>Online Support</h1>
                     </div>
                     <ul class="bread-crumb clearfix">
-                        <li><a href="index.html">Acceuil</a></li>
-                        <li>Service Covering</li>
+                        <li><a href="index.html">Home</a></li>
+                        <li>Service Details</li>
                     </ul>
                 </div>
             </div>
@@ -243,830 +286,116 @@
         <!-- End Page Title -->
 
 
-        <!-- covering-viewer3D -->
-        <section class="shop-details border-bottom">  
-            <div class="product-details-content bg-color-1"> 
-                <div class="sec-title centred">
-                    <span class="top-text">Covering</span>
-                    <h2>Notre outil de prévisualisation:</h2>
-                </div> 
-                <div class="model-viewer-ui">
-                    <div class="model-viewer-container">
-                      <canvas id="webgl"></canvas>
-                      <div class="loading-indicator">Chargement...</div>
-                    </div>
-                  
-                    <div class="control-panel">
-                      <h2>Choisissez votre covering</h2>
-                  
-                      <div class="control-group">
-                        <label for="carSelector">Modèle:</label>
-                        <select id="carSelector" class="nice-select"></select>
-                      </div>
-                  
-                      <div class="control-group">
-                        <label for="wrapSelector">Couleur:</label>
-                        <select id="wrapSelector" class="nice-select"></select>
-                      </div>
-                  
-                      <div class="control-group">
-                        <button id="rotateBtn">Rotation</button>
-                        <button id="resetBtn">Réinitialiser</button>
-                      </div>
-                  
-                      <div class="control-group rotation-slider">
-                        <label for="speedSlider">Vitesse de rotation</label>
-                        <input type="range" min="0.001" max="0.02" step="0.001" value="0.008" id="speedSlider">
-                      </div>
-                    </div>
-                  </div>
-            </div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>  
-            <script type="importmap">  
-            {  
-            "imports": {  
-                "three": "https://unpkg.com/three@0.149.0/build/three.module.js"  
-            }  
-            }  
-            </script>
-            <script type="module">
-                import * as THREE from "three";
-                import { GLTFLoader } from "https://unpkg.com/three@0.149.0/examples/jsm/loaders/GLTFLoader.js";
-                import { OrbitControls } from "https://unpkg.com/three@0.149.0/examples/jsm/controls/OrbitControls.js";
-
-                const scene = new THREE.Scene();
-                scene.background = new THREE.Color(0xd0e7ff);
-                const canvas = document.getElementById("webgl");
-                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                camera.position.set(0, 1, 3);
-                const renderer = new THREE.WebGLRenderer({ canvas });
-                renderer.setPixelRatio(window.devicePixelRatio);
-                renderer.setSize(window.innerWidth, window.innerHeight);
-
-                const controls = new OrbitControls(camera, canvas);
-                controls.enableDamping = true;
-                controls.dampingFactor = 0.05;
-                controls.minDistance = 2;
-                controls.maxDistance = 15;
-
-                const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-                light.position.set(0, 20, 0);
-                scene.add(light);
-
-                const carSelector = document.getElementById("carSelector");
-                const wrapSelector = document.getElementById("wrapSelector");
-                const speedSlider = document.getElementById("speedSlider");
-                const rotateBtn = document.getElementById("rotateBtn");
-                const resetBtn = document.getElementById("resetBtn");
-                const loadingIndicator = document.querySelector('.loading-indicator');
-
-                let carModel, rotationSpeed = 0.008, isRotating = false;
-
-                const loader = new GLTFLoader();
-                const textureLoader = new THREE.TextureLoader();
-
-                function showLoading() {
-                    loadingIndicator.classList.add('loading');
-                    console.log("Loading indicator shown.");
-                }
-
-                function hideLoading() {
-                    loadingIndicator.classList.remove('loading');
-                    console.log("Loading indicator hidden.");
-                }
-
-                showLoading();
-                fetch("data.php")  
-                    .then(res => {
-                        console.log("Data fetched from PHP:", res);
-                        return res.json();
-                    })  
-                    .then(data => {  
-                        console.log("Parsed data:", data);
-                        if (data.models && data.wraps) {
-                        populateDropdown(carSelector, data.models);  
-                        populateDropdown(wrapSelector, data.wraps);  
-
-                        // Initialize nice-select after the dropdown is populated
-                        setTimeout(() => {
-                            // Re-initialize nice-select after populating the options
-                            $('.nice-select').niceSelect('destroy');
-                            $('.nice-select').niceSelect();
-                        }, 50);
-
-                        const defaultModel = "mercedes_gls_580";
-                        if (data.models.includes(defaultModel)) {
-                            carSelector.value = defaultModel;
-                            loadCar(defaultModel);
-                            console.log(`Loading default model: ${defaultModel}`);
-                        } else if (data.models.length) {
-                            carSelector.value = data.models[0];
-                            loadCar(data.models[0]);
-                            console.log(`Loading fallback model: ${data.models[0]}`);
-                        }
-                        } else {
-                        console.error('Invalid data format:', data);
-                        }
-                        hideLoading();  
-                    })  
-                    .catch(error => {  
-                        console.error('Fetch error:', error);  
-                        hideLoading();  
-                    });
-
-                    function populateDropdown(selectEl, items) {
-                        selectEl.innerHTML = ''; // Clear existing options  
-                        items.forEach(item => {  
-                            const option = document.createElement('option');  
-                            option.value = item;  
-                            option.textContent = item;  
-                            selectEl.appendChild(option);  
-                        });  
-
-                        console.log(`Populated dropdown with items: ${items}`);
-
-                        // Ensure nice-select is initialized properly
-                        setTimeout(() => {
-                            $(selectEl).niceSelect('destroy');
-                            $(selectEl).niceSelect();
-                        }, 50);
-                        }
-
-                        function loadCar(modelName) {
-                            if (carModel) scene.remove(carModel);
-                            showLoading();
-
-                            loader.load(`models/${modelName}.glb`, (gltf) => {
-                                const loadedCar = gltf.scene;
-
-                                // Get bounding box
-                                const box = new THREE.Box3().setFromObject(loadedCar);
-                                const size = box.getSize(new THREE.Vector3());
-                                const center = box.getCenter(new THREE.Vector3());
-                                
-                                // Dynamic scaling: scale model to fit a target size (e.g., radius of 1.5 units)
-                                const maxDim = Math.max(size.x, size.y, size.z);
-                                const scale = 2 / maxDim;  // Adjust '3' as your desired target size
-                                loadedCar.scale.setScalar(scale);
-
-                                // Recalculate box and center after scaling
-                                const newBox = new THREE.Box3().setFromObject(loadedCar);
-                                const newCenter = newBox.getCenter(new THREE.Vector3());
-                                
-                                // Center model in all axes, especially Y (vertical)
-                                loadedCar.position.sub(newCenter);
-
-                                // Lift slightly to account for ground level
-                                loadedCar.position.y += newBox.getSize(new THREE.Vector3()).y / 2;
-
-                                loadedCar.position.x -= 0.45;
-                                // Wrap in group
-                                const carGroup = new THREE.Group();
-                                carGroup.add(loadedCar);
-                                carModel = carGroup;
-                                scene.add(carModel);
-                                // Create a pedestal  
-                                // const pedestalGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);  
-                                // const pedestalMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });  
-                                // const pedestal = new THREE.Mesh(pedestalGeometry, pedestalMaterial);  
-                                // pedestal.position.y = -0.05; // Adjust height as needed  
-                                // scene.add(pedestal);  
-                            
-                                // loading garage background  
-                                // const textureLoader = new THREE.TextureLoader();
-                                // textureLoader.load('textures/topdz_garage.png', (texture) => {
-                                //     texture.wrapS = THREE.RepeatWrapping;
-                                //     texture.wrapT = THREE.ClampToEdgeWrapping; // Don't stretch vertically
-                                //     texture.repeat.set(2, 1); // Repeat horizontally only
-
-                                //     const radius = 6;
-                                //     const height = 2.5;
-
-                                //     const garageGeometry = new THREE.CylinderGeometry(radius, radius, height, 64, 1, true);
-                                //     const garageMaterial = new THREE.MeshBasicMaterial({
-                                //         map: texture,
-                                //         side: THREE.BackSide,
-                                //     });
-
-                                //     const garageBackdrop = new THREE.Mesh(garageGeometry, garageMaterial);
-                                //     garageBackdrop.rotation.y = Math.PI; // Face open side toward camera
-                                //     garageBackdrop.position.y = height / 2;
-                                //     scene.add(garageBackdrop);
-                                // });
-
-                                //loading the floor texture
-                                textureLoader.load('textures/floor_concrete.jpg', (floorTexture) => {
-                                    floorTexture.wrapS = THREE.RepeatWrapping;
-                                    floorTexture.wrapT = THREE.RepeatWrapping;
-                                    floorTexture.repeat.set(4, 4);
-
-                                    const floorGeometry = new THREE.PlaneGeometry(10, 10);
-                                    const floorMaterial = new THREE.MeshStandardMaterial({ map: floorTexture });
-                                    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-                                    floor.rotation.x = -Math.PI / 2;
-                                    floor.position.y = -0.051;
-                                    scene.add(floor);
-                                });
-
-                                // Lighting  
-                                const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light  
-                                scene.add(ambientLight);  
-                            
-                                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);  
-                                directionalLight.position.set(5, 5, 5);  
-                                scene.add(directionalLight);
-
-
-                                // Set camera dynamically
-                                const viewer = document.querySelector(".model-viewer-container");
-                                console.log(viewer);
-                                const aspect = viewer.offsetWidth / viewer.offsetHeight;
-                                camera.aspect = aspect;
-                                camera.updateProjectionMatrix();
-                                
-                                const fov = camera.fov * (Math.PI / 180);
-                                const boundingRadius = newBox.getSize(new THREE.Vector3()).length() * 0.5;
-                                const distance = boundingRadius / Math.tan(fov / 2);
-
-                                camera.position.set(0, boundingRadius * 0.6, distance * 1.2); // Balanced Y and Z
-                                controls.target.set(0, 0, 0);
-                                controls.minDistance = distance * 0.5;
-                                controls.maxDistance = distance * 2.5;
-                                controls.update();
-                                
-                                
-                                applyWrap(wrapSelector.value);
-                                hideLoading();
-                            }, undefined, (error) => {
-                                console.error('Model load failed:', error);
-                                hideLoading();
-                            });
-                        }
-
-
-
-                function applyWrap(wrapName) {
-                    if (!carModel) return;
-                    console.log(`Applying wrap: ${wrapName}`);
-                    textureLoader.load(`textures/${wrapName}.jpg`, (texture) => {
-                        carModel.traverse(child => {
-                            if (child.isMesh) {
-                                child.material.map = texture;
-                                child.material.needsUpdate = true;
-                            }
-                        });
-                        console.log("Wrap applied to car model.");
-                    });
-                }
-
-                function animate() {
-                    requestAnimationFrame(animate);
-                    if (carModel && isRotating) {
-                        carModel.rotation.y += rotationSpeed;
-                    }
-                    controls.update();
-                    renderer.render(scene, camera);
-                }
-
-                rotateBtn.addEventListener('click', () => {
-                    isRotating = !isRotating;
-                    rotateBtn.textContent = isRotating ? 'Pause' : 'Rotate';
-                    console.log(`Rotation toggled: ${isRotating}`);
-                });
-
-                resetBtn.addEventListener('click', () => {
-                    if (!carModel) return;
-
-                    // Reset model rotation
-                    carModel.rotation.set(0, 0, 0);
-
-                    // Reset camera using same logic as loadCar
-                    const box = new THREE.Box3().setFromObject(carModel);
-                    const size = box.getSize(new THREE.Vector3());
-                    const fov = camera.fov * (Math.PI / 180);
-                    const modelRadius = size.length() * 0.5;
-                    const distance = modelRadius / Math.sin(fov / 2);
-
-                    camera.position.set(0, size.y * 0.5, distance * 0.8);
-                    controls.target.set(0, 0, 0);
-                    controls.update();
-
-                    console.log("Model and camera reset to default position.");
-                });
-
-                speedSlider.addEventListener('input', () => {
-                    rotationSpeed = parseFloat(speedSlider.value);
-                    console.log(`Rotation speed set to: ${rotationSpeed}`);
-                });
-
-                window.addEventListener('resize', () => {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    console.log("Window resized, updated camera and renderer.");
-                });
-
-                // Touch controls
-                let touchStartX, touchStartY;
-                canvas.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                    touchStartY = e.touches[0].clientY;
-                    console.log("Touch started.");
-                });
-
-                canvas.addEventListener('touchmove', (e) => {
-                    if (e.touches.length === 1) {
-                        const dx = e.touches[0].clientX - touchStartX;
-                        const dy = e.touches[0].clientY - touchStartY;
-                        carModel.rotation.y += dx * 0.005;
-                        carModel.rotation.x += dy * 0.005;
-                        touchStartX = e.touches[0].clientX;
-                        touchStartY = e.touches[0].clientY;
-                        console.log("Touch moved, model rotated.");
-                    }
-                });
-                canvas.addEventListener('resize', () => {
-                    // Update camera aspect ratio
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-
-                    // Update the renderer size
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-
-                    console.log("Window resized, updated camera and renderer.");
-
-                    // Recalculate car model positioning based on new window size
-                    if (carModel) {
-                        const box = new THREE.Box3().setFromObject(carModel);
-                        const size = box.getSize(new THREE.Vector3());
-                        const fov = camera.fov * (Math.PI / 180);
-                        const distance = size.length() / (2 * Math.tan(fov / 2));
-                        camera.position.set(0, size.y, distance * 1.2);  // Update camera position
-                    }
-                });
-                // Initialize
-
-                animate();
-
-                $('#carSelector').on('change', function () {
-                    const selectedModel = $(this).val();
-                    console.log(`Car selector changed: ${selectedModel}`);
-                    loadCar(selectedModel);
-                });
-
-                $('#wrapSelector').on('change', function () {
-                    const selectedWrap = $(this).val();
-                    console.log(`Wrap selector changed: ${selectedWrap}`);
-                    applyWrap(selectedWrap);
-                });
-                console.log("Renderer size:", renderer.domElement.width, renderer.domElement.height);
-                console.log("Canvas size:", canvas.offsetWidth, canvas.offsetHeight);
-                console.log("Camera position:", camera.position);
-                console.log("Scene children:", scene.children);
-            </script>
-
-<style>
-    /* Layout & Containers */
-    .model-viewer-ui {
-      display: flex;
-      height: 100vh;
-      width: 100%;
-      gap: 20px;
-      box-sizing: border-box;
-      border: 3px solid #bc1622;
-      padding: 20px;
-    }
-    
-    .model-viewer-container {
-      flex: 7;
-      position: relative;
-      background: #f9f9f9;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-    
-    #webgl {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      z-index: 1;
-      background-color: #f0f0f0;
-    }
-    
-    .loading-indicator {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18px;
-      color: #333;
-      display: none;
-      z-index: 10;
-    }
-    
-    .control-panel {
-      flex: 3;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e8e8e8;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 20px;
-    }
-    
-    /* Typography */
-    .control-panel h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: #111;
-        margin-bottom: 16px;
-        }
-
-    
-    .control-group label {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 8px;
-        display: block;
-        }
-    
-    /* Buttons */
-    .control-group button {
-        background-color: #ff5252;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        min-width: 130px;
-        box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
-    }
-    
-    .control-group button:hover {
-        background-color: #e84141;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 14px rgba(188, 22, 34, 0.4);
-        }
-    /* Button Group Spacing */
-    .control-group button + button {
-        margin-left: 10px;
-        }
-    /* Nice Select Styling */
-    .control-group select, input, button {
-        font-family: 'Poppins', sans-serif;
-        font-size: 15px;
-        font-weight: 500;
-        color: #1f1f1f;
-    }
-
-    /* Dropdown (Nice Select) */
-    .nice-select {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fff;
-        border: 2px solid #ff5252; /* Fixed bold border */
-        border-radius: 12px;
-        padding: 0 16px;
-        height: 46px;
-        line-height: 46px;
-        font-size: 15px;
-        font-weight: 600;
-        color: #2b2b2b;
-        cursor: pointer;
-        transition: box-shadow 0.3s ease; /* No border color change */
-        box-shadow: none;
-    }
-
-    .nice-select:hover {
-    box-shadow: 0 0 0 4px rgba(255, 82, 82, 0.15); /* Soft glow, no border change */
-    }
-
-    .nice-select::after {
-    content: "";
-    width: 12px;
-    height: 12px;
-    border: solid #ff5252;
-    border-width: 0 2px 2px 0;
-    transform: translateY(-50%) rotate(45deg);
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    }
-
-    .nice-select.open::after {
-    border-color: #bc1622;
-    transform: translateY(-50%) rotate(-135deg);
-    }
-
-    .nice-select .list {
-    max-height: 220px;
-    overflow-y: auto;
-    border: 2px solid #ff5252;
-    border-radius: 10px;
-    background: #fff;
-    margin-top: 8px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    }
-
-    .nice-select .option {
-    padding: 14px 18px;
-    transition: background 0.2s;
-    font-weight: 500;
-    color: #2b2b2b;
-    }
-
-    .nice-select .option:hover {
-    background: #ffeaea;
-    }
-
-    .nice-select .option.selected {
-        background-color: #ffeded;
-        color: #ff5252;
-        font-weight: 700;
-    }
-
-    /* Optional scrollbar styling */
-    .nice-select .list::-webkit-scrollbar {
-        width: 6px;
-    }
-    .nice-select .list::-webkit-scrollbar-thumb {
-        background-color: #bbb;
-        border-radius: 4px;
-        }
-    /* Form Elements */
-    select,
-    input[type="range"] {
-        width: 100%;
-        background: #fff;
-        color: #333;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        padding: 8px;
-    }
-    
-    
-    /* Slider Styling */
-    .rotation-slider input[type="range"] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 6px;
-        background: #e0e0e0;
-        border-radius: 3px;
-        outline: none;
-        margin-top: 10px;
-        }
-
-.rotation-slider input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ff5252;
-  cursor: pointer;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 6px rgba(255, 82, 82, 0.4);
-  transition: background 0.3s;
-}
-
-.rotation-slider input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ff5252;
-  cursor: pointer;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 6px rgba(255, 82, 82, 0.4);
-}
-    
-    /* Responsive Behavior */
-    @media (max-width: 768px) {
-      .model-viewer-ui {
-        flex-direction: column;
-      }
-    
-      .model-viewer-container,
-      .control-panel {
-        flex: 1 1 100%;
-        width: 100%;
-      }
-    }
-    </style>
-    
-            <div class="product-discription">
-                <div class="auto-container">
-                    <div class="tabs-box">
-                        <div class="tab-btn-box">
-                            <ul class="tab-btns tab-buttons clearfix">
-                                <li class="tab-btn active-btn" data-tab="#tab-1">Description</li>
-                                <li class="tab-btn" data-tab="#tab-2">Additional information</li>
-                                <li class="tab-btn" data-tab="#tab-3">Reviews (1)</li>
-                            </ul>
-                        </div>
-                        <div class="tabs-content">
-                            <div class="tab active-tab" id="tab-1">
-                                <div class="content-box">
-                                    <p>Sorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur xcepteur sint occaecat cupidatat non proident, sunt.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudinInteger in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper,</p>
-                                </div>
-                            </div>
-                            <div class="tab" id="tab-2">
-                                <div class="content-box">
-                                    <p>Sorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur xcepteur sint occaecat cupidatat non proident, sunt.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudinInteger in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor.</p>
-                                </div>
-                            </div>
-                            <div class="tab" id="tab-3">
-                                <div class="row clearfix">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 review-block">
-                                        <div class="customer-review">
-                                            <h3>Reviews</h3>
-                                            <div class="single-review">
-                                                <figure class="image-box"><img src="assets/images/resource/review-1.png" alt=""></figure>
-                                                <div class="inner">
-                                                    <ul class="rating">
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                        <li><i class="fas fa-star"></i></li>
-                                                    </ul>
-                                                    <h5>Eileen Alene<span> - May 2, 2020</span></h5>
-                                                    <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  est laborum. Sed perspiciatis unde omnis natus.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 comment-column">
-                                        <div class="customer-comments">
-                                            <h3>Be First To Rate It</h3>
-                                            <div class="rating-box clearfix">
-                                                <p>Your Rating</p>
-                                                <ul class="rating clearfix">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <form action="single-shop-1.html" method="post" class="comment-form">
-                                                <div class="row clearfix">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                        <label>Your Review</label>
-                                                        <textarea name="message"></textarea>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                                                        <label>Your Name</label>
-                                                        <input type="text" name="name" required="">
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-                                                        <label>Your Email</label>
-                                                        <input type="email" name="email" required="">
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-12 col-sm-12 form-group message-btn">
-                                                        <button type="submit" class="theme-btn-two">Submit Now</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- shop-details end -->
-
-
-        <!-- other-shop-section -->
-        <section class="other-shop-section">
+        <!-- service-details -->
+        <section class="service-details">
             <div class="auto-container">
-                <div class="sec-title centred">
-                    <span class="top-text">Our Shop</span>
-                    <h2>We Provide Professional Auto <br><span>Glass Repair Services</span></h2>
-                </div>
                 <div class="row clearfix">
-                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                        <div class="shop-block-one">
-                            <div class="inner-box">
-                                <figure class="image-box"><a href="shop-details.html"><img src="assets/images/resource/shop/shop-1.jpg" alt=""></a></figure>
-                                <div class="lower-content">
-                                    <ul class="rating clearfix">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <h5><a href="shop-details.html">OE Replica Wheels</a></h5>
-                                    <span class="price">$95.99</span>
+                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                        <div class="service-details-content">
+                            <figure class="image-box"><img src="assets/images/service/service-details-5.jpg" alt=""></figure>
+                            <div class="inner">
+                                <h2>Online Support</h2>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatu</p>
+                                <ul class="list-item clearfix">
+                                    <li>Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem enim ad minima veniam quis nostrum</li>
+                                    <li>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nmolestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariat</li>
+                                    <li>But I must explain to you how all this mistaken idea of denouncing pleasure praising pain was born and I will give you complete account of the system expound</li>
+                                </ul>
+                            </div>
+                            <div class="two-column">
+                                <div class="row clearfix align-items-center">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 image-column">
+                                        <figure class="image-box"><img src="assets/images/service/service-details-2.jpg" alt=""></figure>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 text-column">
+                                        <div class="text">
+                                            <h3>Take Easy Steps</h3>
+                                            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.</p>
+                                            <ul class="list-item clearfix">
+                                                <li>Business & Consulting Agency</li>
+                                                <li>Awards Winning Business Comapny</li>
+                                                <li>Complete Guide To Mechanical</li>
+                                                <li>Firebase Authentication & Database</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="accordion-inner">
+                                <ul class="accordion-box">
+                                    <li class="accordion block">
+                                        <div class="acc-btn">
+                                            <div class="icon-outer"><i class="far fa-plus"></i></div>
+                                            <h6>How To Create A Mobile App In Expo And Firebase</h6>
+                                        </div>
+                                        <div class="acc-content">
+                                            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some</p>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block active-block">
+                                        <div class="acc-btn active">
+                                            <div class="icon-outer"><i class="far fa-plus"></i></div>
+                                            <h6>Smashing Podcast Episode With Ben How Optimize ?</h6>
+                                        </div>
+                                        <div class="acc-content current">
+                                            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some</p>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block">
+                                         <div class="acc-btn">
+                                            <div class="icon-outer"><i class="far fa-plus"></i></div>
+                                            <h6>Learning Resources Challenging Online Workshops ?</h6>
+                                        </div>
+                                        <div class="acc-content">
+                                            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some</p>
+                                        </div>
+                                    </li>
+                                    <li class="accordion block">
+                                         <div class="acc-btn">
+                                            <div class="icon-outer"><i class="far fa-plus"></i></div>
+                                            <h6>Micro-Typography: How To Space And Kern ?</h6>
+                                        </div>
+                                        <div class="acc-content">
+                                            <p>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some</p>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                        <div class="shop-block-one">
-                            <div class="inner-box">
-                                <figure class="image-box"><a href="shop-details.html"><img src="assets/images/resource/shop/shop-2.jpg" alt=""></a></figure>
-                                <div class="lower-content">
-                                    <ul class="rating clearfix">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <h5><a href="shop-details.html">Floor Mats & Liners</a></h5>
-                                    <span class="price">$78.99</span>
+                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                        <div class="service-sidebar default-sidebar">
+                            <div class="sidebar-widget category-widget">
+                                <ul class="category-list clearfix">
+                                    <li><a href="service-details.html">Auto Glas Repair</a></li>
+                                    <li><a href="service-details-2.html">Auto Glas Claning</a></li>
+                                    <li><a href="service-details-3.html">Auto Glas Replacement</a></li>
+                                    <li><a href="service-details-4.html" class="current">Online Support</a></li>
+                                    <li><a href="service-details-5.html">Windshield Replacement</a></li>
+                                </ul>
+                            </div>
+                            <div class="contact-widget">
+                                <div class="widget-title">
+                                    <h3>Send Message</h3>
+                                </div>
+                                <div class="form-inner">
+                                    <form action="contact.html" method="post" class="message-form">
+                                        <div class="form-group">
+                                            <input type="email" name="email" placeholder="Your Email" required="">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea name="message" placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="theme-btn">send message<i class="far fa-angle-double-right"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                        <div class="shop-block-one">
-                            <div class="inner-box">
-                                <figure class="image-box"><a href="shop-details.html"><img src="assets/images/resource/shop/shop-3.jpg" alt=""></a></figure>
-                                <div class="lower-content">
-                                    <ul class="rating clearfix">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <h5><a href="shop-details.html">OE Replica Wheels</a></h5>
-                                    <span class="price">$70.99</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                        <div class="shop-block-one">
-                            <div class="inner-box">
-                                <figure class="image-box"><a href="shop-details.html"><img src="assets/images/resource/shop/shop-4.jpg" alt=""></a></figure>
-                                <div class="lower-content">
-                                    <ul class="rating clearfix">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <h5><a href="shop-details.html">Floor Mats & Liners</a></h5>
-                                    <span class="price">$44.99</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                        <div class="shop-block-one">
-                            <div class="inner-box">
-                                <figure class="image-box"><a href="shop-details.html"><img src="assets/images/resource/shop/shop-5.jpg" alt=""></a></figure>
-                                <div class="lower-content">
-                                    <ul class="rating clearfix">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <h5><a href="shop-details.html">Bumper Retainer</a></h5>
-                                    <span class="price">$75.99</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                        <div class="shop-block-one">
-                            <div class="inner-box">
-                                <figure class="image-box"><a href="shop-details.html"><img src="assets/images/resource/shop/shop-6.jpg" alt=""></a></figure>
-                                <div class="lower-content">
-                                    <ul class="rating clearfix">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <h5><a href="shop-details.html">A/C & Heater Control</a></h5>
-                                    <span class="price">$88.99</span>
+                            <div class="other-box centred">
+                                <div class="inner" style="background-image: url(assets/images/resource/column-1.jpg);">
+                                    <h2>Need Any <span>Glass Services</span></h2>
+                                    <div class="btn-box"><a href="contact.html" class="theme-btn">conatct us<i class="far fa-angle-double-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
@@ -1074,107 +403,107 @@
                 </div>
             </div>
         </section>
-        <!-- other-shop-section end -->
+        <!-- service-details end -->
 
 
-        <!-- main-footer -->
-        <section class="main-footer">
-            <div class="auto-container">
-                <div class="footer-top bg-color-2 clearfix">
-                    <figure class="footer-logo pull-left"><a href="index.html"><img src="assets/images/footer-logo.png" alt=""></a></figure>
-                    <ul class="top-info pull-right">
-                        <li>
-                            <i class="fal fa-user-circle"></i>
-                            <h3>365482</h3>
-                            <p>Saticfied Clients</p>
-                        </li>
-                        <li>
-                            <i class="fal fa-car-mechanic"></i>
-                            <h3>8563214</h3>
-                            <p>Complate Project</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="widget-section">
-                    <div class="row clearfix">
-                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
-                            <div class="footer-widget about-widget">
-                                <div class="widget-title">
-                                    <h3>About Fuzze</h3>
-                                </div>
-                                <div class="text">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit volu ptatem accusantium remque laudantiue totam rem aperiam, eaque ipsa quae ab illo inventore veritatis architecto beatae vitae dicta</p>
-                                </div>
-                                <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:support@gmail.com">support@gmail.com</a></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
-                            <div class="footer-widget links-widget ml-90">
-                                <div class="widget-title">
-                                    <h3>Quick Links</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="links-list clearfix">
-                                        <li><a href="index.html">Help & Contact Us</a></li>
-                                        <li><a href="index.html">Returns & Refunds</a></li>
-                                        <li><a href="index.html">Online Stores</a></li>
-                                        <li><a href="index.html">Payment Method</a></li>
-                                        <li><a href="index.html">Terms & Condition</a></li>
-                                    </ul>
-                                </div>
-                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
-                            <div class="footer-widget links-widget ml-30">
-                                <div class="widget-title">
-                                    <h3>Services</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="links-list clearfix">
-                                        <li><a href="index.html">Auto Cars Repairs</a></li>
-                                        <li><a href="index.html">Tapdrup Ejendomme</a></li>
-                                        <li><a href="index.html">Superego</a></li>
-                                        <li><a href="index.html">Riis Photography</a></li>
-                                        <li><a href="index.html">BSM Reklame</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
-                            <div class="footer-widget post-widget">
-                                <div class="widget-title">
-                                    <h3>Recent News</h3>
-                                </div>
-                                <div class="post-inner">
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/footer-post-1.jpg" alt=""></a></figure>
-                                        <h6><a href="blog-details.html">Designing Ethically Optim Videos And Shining</a></h6>
-                                        <span class="post-date"><i class="fal fa-envelope"></i>05 November 2020</span>
-                                    </div>
-                                    <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/footer-post-2.jpg" alt=""></a></figure>
-                                        <h6><a href="blog-details.html">Designing Ethically Optim Videos And Shining</a></h6>
-                                        <span class="post-date"><i class="fal fa-envelope"></i>04 November 2020</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
-                </div>
-                <div class="footer-bottom clearfix">
-                    <div class="copyright pull-left">
-                        <p>Copyright &copy; 2021 <a href="index.html">Fuzze</a>. All Rights Reserved.</p>
+             <!-- main-footer -->
+             <section class="main-footer">
+                <div class="auto-container">
+                    <div class="footer-top bg-color-2 clearfix">
+                        <figure class="footer-logo pull-left"><a href="index.html"><img src="assets/img/logo_white.webp" alt=""></a></figure>
+                        <ul class="top-info pull-right">
+                            <li>
+                                <i class="fab fa-facebook-f"></i>
+                                <h3>850k+</h3>
+                                <p>Followers sur Facebook</p>
+                            </li>
+                            <li>
+                                <i class="fab fa-instagram"></i>
+                                <h3>150K+</h3>  
+                                <p>Followers sur Instagram</p>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="footer-social pull-right">
-                        <li><a href="index.html"><i class="fab fa-facebook-f"></i>Facebook</a></li>
-                        <li><a href="index.html"><i class="fab fa-twitter"></i>Twitter</a></li>
-                        <li><a href="index.html"><i class="fab fa-youtube"></i>Youtube</a></li>
-                        <li><a href="index.html"><i class="fab fa-instagram"></i>Instagram</a></li>
-                    </ul>
+                    <div class="widget-section">
+                        <div class="row clearfix">
+                            <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                                <div class="footer-widget about-widget">
+                                    <div class="widget-title">
+                                        <h3>A propos de nous</h3>
+                                    </div>
+                                    <div class="text">
+                                        <p>Lavage tous véhicules, brillance avec Wax ou Quick Wax, detailing (rayures, céramique), wrapping (covering, PPF, vitres teintées), et vente d’articles de detailing et parfums auto</p>
+                                    </div>
+                                    <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:amani.lahcene@gmail.com">amani.lahcene@gmail.com</a></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                                <div class="footer-widget links-widget ml-90">
+                                    <div class="widget-title">
+                                        <h3>Liens Rapides</h3>
+                                    </div>
+                                    <div class="widget-content">
+                                        <ul class="links-list clearfix">
+                                            <li><a href="index.html">Acceuil</a></li>
+                                            <li><a href="gallery.html">Galerie de photos</a></li>
+                                            <li><a href="contact.html">Contactez-Nous</a></li>
+                                        </ul>
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                                <div class="footer-widget links-widget ml-30">
+                                    <div class="widget-title">
+                                        <h3>Services</h3>
+                                    </div>
+                                    <div class="widget-content">
+                                        <ul class="links-list clearfix">
+                                            <li><a href="ppf.html">Filme protecteur(PPF)</a></li>
+                                            <li><a href="covering.html">Covering</a></li>
+                                            <li><a href="detailing.html">Detailling</a></li>
+                                            <li><a href="perf.html">Performance</a></li>
+                                            <li><a href="lavage.html">Lavage Auto</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                                <div class="footer-widget post-widget">
+                                    <div class="widget-title">
+                                        <h3>Recent News</h3>
+                                    </div>
+                                    <div class="post-inner">
+                                        <div class="post">
+                                            <figure class="post-thumb"><a href="blog-details.html"><img src="assets/img/logo/favicon.svg" alt=""></a></figure>
+                                            <h6><a href="blog-details.html">Ouverture de notre garage TDM Performance</a></h6>
+                                            <span class="post-date"><i class="fal fa-envelope"></i>05 Jan 2025</span>
+                                        </div>
+                                        <div class="post">
+                                            <figure class="post-thumb"><a href="blog-details.html"><img src="assets/img/logo/favicon.svg" alt=""></a></figure>
+                                            <h6><a href="blog-details.html">Retrouvez-nous au event de drift</a></h6>
+                                            <span class="post-date"><i class="fal fa-envelope"></i>01 Mai 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="footer-bottom clearfix">
+                        <div class="copyright pull-left">
+                            <p>Copyright &copy; 2025 <a href="index.html">Top Dz Motors</a>. Tous Droits Réserver.</p>
+                        </div>
+                        <ul class="footer-social pull-right">
+                            <li><a href="index.html"><i class="fab fa-facebook-f"></i>Facebook</a></li>
+                            <li><a href="index.html"><i class="fab fa-twitter"></i>Twitter</a></li>
+                            <li><a href="index.html"><i class="fab fa-youtube"></i>Youtube</a></li>
+                            <li><a href="index.html"><i class="fab fa-instagram"></i>Instagram</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <!-- main-footer end -->
+            </section>
+            <!-- main-footer end -->
+    
+    
 
 
 

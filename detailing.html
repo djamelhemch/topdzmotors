@@ -39,25 +39,106 @@
         <!-- preloader -->
         <div class="loader-wrap">
             <div class="preloader">
-                <div class="preloader-close">Preloader Close</div>
+                <div class="preloader-close">Fermer x</div>
                 <div id="handle-preloader" class="handle-preloader">
                     <div class="animation-preloader">
-                        <div class="spinner"></div>
+                        <svg class="custom-spinner" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 118.61 118.6" width="150" height="150">
+                            <defs>
+                              <style>
+                                .cls-1 {
+                                  fill: url(#linear-gradient-2);
+                                  mix-blend-mode: lighten;
+                                  opacity: .43;
+                                }
+                                .cls-2 {
+                                  fill: #fff;
+                                }
+                                .cls-3 {
+                                  isolation: isolate;
+                                }
+                                .cls-4 {
+                                  fill: #222221;
+                                }
+                                .cls-5 {
+                                  fill: url(#linear-gradient);
+                                }
+                              </style>
+                              <linearGradient id="linear-gradient" x1="17.79" y1="32.12" x2="117.02" y2="97.1" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#a92d32"/>
+                                <stop offset=".35" stop-color="#a02a2d"/>
+                                <stop offset="1" stop-color="#942628"/>
+                              </linearGradient>
+                              <linearGradient id="linear-gradient-2" x1="59.3" y1="69.92" x2="59.3" y2="0" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#fff"/>
+                                <stop offset="0" stop-color="#fff" stop-opacity=".96"/>
+                                <stop offset=".05" stop-color="#fff" stop-opacity=".78"/>
+                                <stop offset=".09" stop-color="#fff" stop-opacity=".61"/>
+                                <stop offset=".14" stop-color="#fff" stop-opacity=".47"/>
+                                <stop offset=".2" stop-color="#fff" stop-opacity=".34"/>
+                                <stop offset=".25" stop-color="#fff" stop-opacity=".23"/>
+                                <stop offset=".32" stop-color="#fff" stop-opacity=".15"/>
+                                <stop offset=".4" stop-color="#fff" stop-opacity=".08"/>
+                                <stop offset=".49" stop-color="#fff" stop-opacity=".03"/>
+                                <stop offset=".63" stop-color="#fff" stop-opacity="0"/>
+                                <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                              </linearGradient>
+                            </defs>
+                            <g class="cls-3">
+                              <g id="Layer_1" data-name="Layer 1">
+                                <rect class="cls-5" x="0" y="0" width="118.61" height="118.61" rx="27.16" ry="27.16"/>
+                                <g>
+                                  <path class="cls-2" d="M53.44,86.99c-.59.94-1.21,1.86-1.87,2.75-.95,1.25-1.94,2.5-3.02,3.64-.15-.04-.29-.09-.44-.14-.56-.18-1.19,0-1.55.46l-4.15,5.24c-1.06,1.35-2.99,1.7-4.46.8l-4.82-2.94c-1.48-.9-2.05-2.76-1.33-4.33l2.76-6.09c.25-.55.12-1.17-.3-1.58-1.74-1.71-3.31-3.61-4.66-5.64-.33-.49-.93-.74-1.5-.6l-6.51,1.58c-1.68.41-3.4-.5-4.01-2.12l-1.99-5.29c-.61-1.62.09-3.44,1.62-4.23l5.94-3.11c.52-.27.8-.84.73-1.43-.04-.36-.09-.73-.12-1.09-.06-.59-.47-1.08-1.05-1.23l-6.48-1.66c-1.68-.42-2.77-2.03-2.54-3.75l.73-5.61c.22-1.71,1.69-2.99,3.41-2.98l1.69.02c2.02,2.86,5.14,4.74,8.03,6.6,1.32.78,2.68,1.5,4.08,2.15-.13,1.06-.19,2.15-.19,3.25,0,13.4,9.43,24.59,22.01,27.31Z"/>
+                                  <path class="cls-2" d="M93.38,89.81l-4.02,3.96c-1.23,1.22-3.18,1.32-4.53.25l-5.24-4.16c-.46-.36-1.11-.39-1.61-.09-2.08,1.27-4.28,2.34-6.6,3.17-.55.2-.93.72-.94,1.32l-.03,6.69c0,1.72-1.31,3.18-3.03,3.37l-5.61.65c-1.71.2-3.31-.91-3.72-2.6l-1.57-6.51c-.14-.58-.63-1-1.22-1.06-.95-.1-1.9-.25-2.82-.43.64-.94,1.25-1.9,1.84-2.84.78-1.32,1.5-2.67,2.15-4.07.97.1,1.95.16,2.94.16,13.46,0,24.69-9.52,27.34-22.18,1.04.64,2.05,1.32,3.03,2.04,1.41,1.07,2.82,2.19,4.07,3.44-.47.1-.85.43-1.02.89-.87,2.31-1.96,4.51-3.25,6.56-.32.5-.3,1.14.06,1.61l4.09,5.3c1.06,1.37.93,3.31-.3,4.53Z"/>
+                                  <path class="cls-2" d="M104.93,62.36l-.73,5.61c-.22,1.71-1.69,2.99-3.41,2.98h-1.57c-2.02-2.63-4.96-4.41-7.7-6.17-1.41-.83-2.87-1.6-4.37-2.28.1-.93.15-1.86.15-2.81,0-13.35-9.37-24.52-21.9-27.28.65-1.06,1.35-2.09,2.08-3.08,1.03-1.34,2.09-2.69,3.29-3.9h0c.48.07.97-.11,1.27-.5l1.4-1.77.71-.91,2.03-2.57c1.07-1.35,2.99-1.7,4.47-.8l4.82,2.94c1.48.9,2.05,2.76,1.33,4.34l-2.76,6.08c-.25.55-.12,1.17.3,1.58,1.74,1.72,3.31,3.61,4.66,5.65.33.48.92.74,1.5.59l6.51-1.57c1.68-.42,3.4.49,4.01,2.11l1.99,5.29c.61,1.62-.09,3.44-1.62,4.24l-5.94,3.1c-.52.27-.8.84-.73,1.43.04.36.09.73.12,1.09.06.59.47,1.08,1.04,1.23l6.49,1.66c1.68.42,2.77,2.03,2.54,3.75Z"/>
+                                  <path class="cls-2" d="M66.84,24.36c-.72,1.05-1.39,2.12-2.07,3.17-.83,1.42-1.6,2.87-2.29,4.38-1.02-.11-2.06-.17-3.12-.17-13.3,0-24.43,9.29-27.25,21.74-.96-.6-1.9-1.24-2.8-1.9-1.57-1.2-3.16-2.46-4.5-3.9.46-.1.84-.43,1.01-.88.87-2.31,1.96-4.51,3.25-6.56.32-.5.3-1.14-.06-1.61l-4.09-5.3c-1.06-1.37-.93-3.31.3-4.53l4.02-3.96c1.23-1.22,3.18-1.32,4.53-.25l5.24,4.16c.46.36,1.1.4,1.61.09,2.08-1.27,4.28-2.34,6.6-3.17.55-.2.93-.72.94-1.31l.03-6.7c0-1.72,1.31-3.18,3.03-3.37l5.61-.65c1.71-.2,3.31.92,3.71,2.6l1.57,6.51c.14.58.63,1,1.22,1.06,1.19.13,2.35.32,3.49.56Z"/>
+                                  <path class="cls-4" d="M59.36,72.27c-.74,3.86-2.09,7.62-3.88,11.13h0c-10.43-1.76-18.84-10.25-20.02-21.28-.15-1.38-.18-2.75-.09-4.1,3.7,1.39,7.58,2.31,11.48,2.65,0,.07,0,.15.02.22.69,6.49,6.14,11.3,12.5,11.38Z"/>
+                                  <path class="cls-4" d="M61.03,35.36c-1.38,3.7-2.31,7.58-2.64,11.49h0c-.08,0-.15,0-.22.02-6.48.69-11.29,6.14-11.37,12.5-3.86-.74-7.62-2.09-11.14-3.89,1.76-10.43,10.25-18.84,21.29-20.03,1.38-.15,2.75-.18,4.09-.09Z"/>
+                                  <path class="cls-4" d="M83.39,63.57c-1.76,10.43-10.25,18.85-21.28,20.03-1.38.15-2.76.18-4.1.09,1.39-3.7,2.32-7.58,2.65-11.48.08,0,.15,0,.22-.02,6.49-.69,11.31-6.15,11.38-12.51,3.86.75,7.62,2.09,11.13,3.89Z"/>
+                                  <path class="cls-4" d="M83.69,61.04c-3.7-1.39-7.57-2.32-11.48-2.65,0-.08,0-.15-.02-.22-.69-6.47-6.14-11.29-12.5-11.37.74-3.86,2.09-7.62,3.89-11.14,10.43,1.75,18.85,10.25,20.03,21.28.15,1.38.18,2.76.09,4.1Z"/>
+                                </g>
+                                <path class="cls-1" d="M118.61,27.16v26.89c-14.31,9.82-33.89,15.87-55.47,15.87C37.39,69.92,14.51,61.31,0,47.95v-20.79C0,12.16,12.16,0,27.16,0h64.29c15,0,27.16,12.16,27.16,27.16Z"/>
+                              </g>
+                            </g>
+                          </svg>
                         <div class="txt-loading">
-                            <span data-text-preloader="f" class="letters-loading">
-                                f
+                            <span data-text-preloader="T" class="letters-loading">
+                                T
                             </span>
-                            <span data-text-preloader="u" class="letters-loading">
-                                u
+                            <span data-text-preloader="o" class="letters-loading">
+                                o
                             </span>
-                            <span data-text-preloader="z" class="letters-loading">
-                                z
+                            <span data-text-preloader="p" class="letters-loading">
+                                p
                             </span>
-                            <span data-text-preloader="z" class="letters-loading">
-                                z
+                            <span data-text-preloader=" " class="letters-loading">
+                                
                             </span>
-                            <span data-text-preloader="e" class="letters-loading">
-                                e
+                            <span data-text-preloader="D" class="letters-loading">
+                                D
+                            </span>
+                            <span data-text-preloader="Z" class="letters-loading">
+                                Z
+                            </span>
+                            <span data-text-preloader="" class="letters-loading">
+                                
+                            </span>
+                            <span data-text-preloader="M" class="letters-loading">
+                                M
+                            </span>
+                            <span data-text-preloader="o" class="letters-loading">
+                                o
+                            </span>
+                            <span data-text-preloader="t" class="letters-loading">
+                                t
+                            </span>
+                            <span data-text-preloader="o" class="letters-loading">
+                                o
+                            </span>
+                            <span data-text-preloader="r" class="letters-loading">
+                                r
+                            </span>
+                            <span data-text-preloader="s" class="letters-loading">
+                                s
                             </span>
                         </div>
                     </div>  
@@ -185,21 +266,7 @@
                                 </ul>
                             </div>
                         </nav>
-                        <div class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-search"></i></button>
-                                <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
-                                    <div class="form-container">
-                                        <form method="post" action="blog.html">
-                                            <div class="form-group">
-                                                <input type="search" name="search-field" value="" placeholder="Search...." required="">
-                                                <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="btn-box">
                         <a href="index.html" class="theme-btn">get a quote<i class="far fa-angle-double-right"></i></a>
@@ -217,21 +284,7 @@
                         <nav class="main-menu clearfix">
                             <!--Keep This Empty / Menu will come through Javascript-->
                         </nav>
-                        <div class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-search"></i></button>
-                                <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu4">
-                                    <div class="form-container">
-                                        <form method="post" action="blog.html">
-                                            <div class="form-group">
-                                                <input type="search" name="search-field" value="" placeholder="Search...." required="">
-                                                <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="btn-box">
                         <a href="index.html" class="theme-btn">get a quote<i class="far fa-angle-double-right"></i></a>
@@ -407,21 +460,20 @@
         <!-- service-details end -->
 
 
-        <!-- main-footer -->
         <section class="main-footer">
             <div class="auto-container">
                 <div class="footer-top bg-color-2 clearfix">
-                    <figure class="footer-logo pull-left"><a href="index.html"><img src="assets/images/footer-logo.png" alt=""></a></figure>
+                    <figure class="footer-logo pull-left"><a href="index.html"><img src="assets/img/logo_white.webp" alt=""></a></figure>
                     <ul class="top-info pull-right">
                         <li>
-                            <i class="fal fa-user-circle"></i>
-                            <h3>365482</h3>
-                            <p>Saticfied Clients</p>
+                            <i class="fab fa-facebook-f"></i>
+                            <h3>850k+</h3>
+                            <p>Followers sur Facebook</p>
                         </li>
                         <li>
-                            <i class="fal fa-car-mechanic"></i>
-                            <h3>8563214</h3>
-                            <p>Complate Project</p>
+                            <i class="fab fa-instagram"></i>
+                            <h3>150K+</h3>  
+                            <p>Followers sur Instagram</p>
                         </li>
                     </ul>
                 </div>
@@ -430,26 +482,24 @@
                         <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
                             <div class="footer-widget about-widget">
                                 <div class="widget-title">
-                                    <h3>About Fuzze</h3>
+                                    <h3>A propos de nous</h3>
                                 </div>
                                 <div class="text">
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit volu ptatem accusantium remque laudantiue totam rem aperiam, eaque ipsa quae ab illo inventore veritatis architecto beatae vitae dicta</p>
+                                    <p>Lavage tous véhicules, brillance avec Wax ou Quick Wax, detailing (rayures, céramique), wrapping (covering, PPF, vitres teintées), et vente d’articles de detailing et parfums auto</p>
                                 </div>
-                                <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:support@gmail.com">support@gmail.com</a></div>
+                                <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:amani.lahcene@gmail.com">amani.lahcene@gmail.com</a></div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
                             <div class="footer-widget links-widget ml-90">
                                 <div class="widget-title">
-                                    <h3>Quick Links</h3>
+                                    <h3>Liens Rapides</h3>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="links-list clearfix">
-                                        <li><a href="index.html">Help & Contact Us</a></li>
-                                        <li><a href="index.html">Returns & Refunds</a></li>
-                                        <li><a href="index.html">Online Stores</a></li>
-                                        <li><a href="index.html">Payment Method</a></li>
-                                        <li><a href="index.html">Terms & Condition</a></li>
+                                        <li><a href="index.html">Acceuil</a></li>
+                                        <li><a href="gallery.html">Galerie de photos</a></li>
+                                        <li><a href="contact.html">Contactez-Nous</a></li>
                                     </ul>
                                 </div>
                              </div>
@@ -461,11 +511,11 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="links-list clearfix">
-                                        <li><a href="index.html">Auto Cars Repairs</a></li>
-                                        <li><a href="index.html">Tapdrup Ejendomme</a></li>
-                                        <li><a href="index.html">Superego</a></li>
-                                        <li><a href="index.html">Riis Photography</a></li>
-                                        <li><a href="index.html">BSM Reklame</a></li>
+                                        <li><a href="ppf.html">Filme protecteur(PPF)</a></li>
+                                        <li><a href="covering.html">Covering</a></li>
+                                        <li><a href="detailing.html">Detailling</a></li>
+                                        <li><a href="perf.html">Performance</a></li>
+                                        <li><a href="lavage.html">Lavage Auto</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -477,14 +527,14 @@
                                 </div>
                                 <div class="post-inner">
                                     <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/footer-post-1.jpg" alt=""></a></figure>
-                                        <h6><a href="blog-details.html">Designing Ethically Optim Videos And Shining</a></h6>
-                                        <span class="post-date"><i class="fal fa-envelope"></i>05 November 2020</span>
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="assets/img/logo/favicon.svg" alt=""></a></figure>
+                                        <h6><a href="blog-details.html">Ouverture de notre garage TDM Performance</a></h6>
+                                        <span class="post-date"><i class="fal fa-envelope"></i>05 Jan 2025</span>
                                     </div>
                                     <div class="post">
-                                        <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/footer-post-2.jpg" alt=""></a></figure>
-                                        <h6><a href="blog-details.html">Designing Ethically Optim Videos And Shining</a></h6>
-                                        <span class="post-date"><i class="fal fa-envelope"></i>04 November 2020</span>
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="assets/img/logo/favicon.svg" alt=""></a></figure>
+                                        <h6><a href="blog-details.html">Retrouvez-nous au event de drift</a></h6>
+                                        <span class="post-date"><i class="fal fa-envelope"></i>01 Mai 2025</span>
                                     </div>
                                 </div>
                             </div>
@@ -493,7 +543,7 @@
                 </div>
                 <div class="footer-bottom clearfix">
                     <div class="copyright pull-left">
-                        <p>Copyright &copy; 2021 <a href="index.html">Fuzze</a>. All Rights Reserved.</p>
+                        <p>Copyright &copy; 2025 <a href="index.html">Top Dz Motors</a>. Tous Droits Réserver.</p>
                     </div>
                     <ul class="footer-social pull-right">
                         <li><a href="index.html"><i class="fab fa-facebook-f"></i>Facebook</a></li>
@@ -504,7 +554,6 @@
                 </div>
             </div>
         </section>
-        <!-- main-footer end -->
 
 
 

@@ -1,0 +1,44 @@
+##\
+# This file is a part of the phpMussel\Plugin-PHPMailer package.
+# Homepage: https://phpmussel.github.io/
+#
+# PHPMUSSEL COPYRIGHT 2013 AND BEYOND BY THE PHPMUSSEL TEAM.
+#
+# License: GNU/GPLv2
+# @see LICENSE.txt
+#
+# This file: Indonesian language data (last modified: 2024.04.19).
+#
+# Regarding translations: My native language is English. Because this is a free
+# and open-source hobby project which generates zero income, and translatable
+# content is likely to change as the features and functionality supported by
+# the project changes, it doesn't make sense for me to spend money for
+# translations. Because I'm the sole author/developer/maintainer for the
+# project and I'm not a ployglot, any translations I produce are very likely to
+# contain errors. Sorry, but realistically, that won't ever change. If you find
+# any such errors/typos/mistakes/etc, your assistance to correct them would be
+# very much appreciated. Pull requests are invited and encouraged. Otherwise,
+# if you find these errors too much to handle, just stick with the original
+# English source. If a translation is irredeemably incomprehensible, let me
+# know which, and I can delete it. If you're not sure how to perform pull
+# requests, ask. I can help.
+##/
+
+config:
+ phpmailer: "Konfigurasi untuk PHPMailer (digunakan untuk otentikasi dua-faktor dan untuk pemberitahuan email)."
+ phpmailer_add_reply_to_address: "Alamat balasan yang dikutip saat mengirim email melalui SMTP."
+ phpmailer_add_reply_to_name: "Nama balasan yang dikutip saat mengirim email melalui SMTP."
+ phpmailer_enable_notifications: "Jika Anda ingin diberi tahu melalui email saat upload diblokir, tentukan alamat email penerima disini."
+ phpmailer_enable_two_factor: "Direktif ini menentukan apakah akan menggunakan 2FA untuk akun depan."
+ phpmailer_event_log: "File untuk mencatat semua kejadian yang terkait dengan PHPMailer. Spesifikasikan nama file, atau biarkan kosong untuk menonaktifkan."
+ phpmailer_host: "Host SMTP yang digunakan untuk email keluar."
+ phpmailer_password: "Kata sandi yang digunakan saat mengirim email melalui SMTP."
+ phpmailer_port: "Nomor port yang digunakan untuk email keluar. Default = 587."
+ phpmailer_set_from_address: "Alamat pengirim yang dikutip saat mengirim email melalui SMTP."
+ phpmailer_set_from_name: "Nama pengirim yang dikutip saat mengirim email melalui SMTP."
+ phpmailer_skip_auth_process: "Pengaturan direktif ini ke <code>true</code> menginstruksikan PHPMailer untuk melewati proses otentikasi yang biasanya terjadi ketika mengirim email melalui SMTP. Ini harus dihindari, karena melewatkan proses ini dapat mengekspos email keluar ke serangan MITM, tetapi mungkin diperlukan dalam kasus dimana proses ini mencegah PHPMailer menghubungkan ke server SMTP."
+ phpmailer_smtp_auth: "Direktif ini menentukan apakah akan mengotentikasi sesi SMTP (biasanya harus dibiarkan sendiri)."
+ phpmailer_smtp_secure: "Protokol yang digunakan saat mengirim email melalui SMTP (TLS atau SSL)."
+ phpmailer_username: "Nama pengguna yang digunakan saat mengirim email melalui SMTP."
+response:
+ Email successfully sent to %s: "Email berhasil dikirim ke "%s"."

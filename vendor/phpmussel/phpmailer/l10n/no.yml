@@ -1,0 +1,44 @@
+##\
+# This file is a part of the phpMussel\Plugin-PHPMailer package.
+# Homepage: https://phpmussel.github.io/
+#
+# PHPMUSSEL COPYRIGHT 2013 AND BEYOND BY THE PHPMUSSEL TEAM.
+#
+# License: GNU/GPLv2
+# @see LICENSE.txt
+#
+# This file: Norwegian language data (last modified: 2024.04.19).
+#
+# Regarding translations: My native language is English. Because this is a free
+# and open-source hobby project which generates zero income, and translatable
+# content is likely to change as the features and functionality supported by
+# the project changes, it doesn't make sense for me to spend money for
+# translations. Because I'm the sole author/developer/maintainer for the
+# project and I'm not a ployglot, any translations I produce are very likely to
+# contain errors. Sorry, but realistically, that won't ever change. If you find
+# any such errors/typos/mistakes/etc, your assistance to correct them would be
+# very much appreciated. Pull requests are invited and encouraged. Otherwise,
+# if you find these errors too much to handle, just stick with the original
+# English source. If a translation is irredeemably incomprehensible, let me
+# know which, and I can delete it. If you're not sure how to perform pull
+# requests, ask. I can help.
+##/
+
+config:
+ phpmailer: "Konfigurasjon for PHPMailer (brukes til tofaktorautentisering og for e-postvarsler)."
+ phpmailer_add_reply_to_address: "Svaradressen for å sitere når du sender e-post via SMTP."
+ phpmailer_add_reply_to_name: "Svarnavnet til å sitere når du sender e-post via SMTP."
+ phpmailer_enable_notifications: "Hvis du vil bli varslet via e-post når en opplasting er blokkert, spesifiser mottakerens e-postadresse her."
+ phpmailer_enable_two_factor: "Dette direktivet bestemmer om du skal bruke 2FA for frontend-kontoer."
+ phpmailer_event_log: "En fil for å logge alle hendelser i forhold til PHPMailer. Angi et filnavn, eller la det være tomt for å deaktivere."
+ phpmailer_host: "SMTP-verten til bruk for utgående e-post."
+ phpmailer_password: "Passordet som skal brukes når du sender e-post via SMTP."
+ phpmailer_port: "Portnummeret som skal brukes til utgående e-post. Standardverdi = 587."
+ phpmailer_set_from_address: "Avsenderadressen for å sitere når du sender e-post via SMTP."
+ phpmailer_set_from_name: "Avsendernavnet for å sitere når du sender e-post via SMTP."
+ phpmailer_skip_auth_process: "Innstilling av dette direktivet til <code>true</code> instruerer PHPMailer til å hoppe over den normale autentiseringsprosessen som normalt oppstår når du sender e-post via SMTP. Dette bør unngås, fordi hoppe over denne prosessen kan utsette utgående e-post til MITM-angrep, men kan være nødvendig i tilfeller der denne prosessen forhindrer PHPMailer fra å koble til en SMTP-server."
+ phpmailer_smtp_auth: "Dette direktivet bestemmer om du skal autentisere SMTP-økter (bør vanligvis la det være alene)."
+ phpmailer_smtp_secure: "Protokollen som skal brukes når du sender e-post via SMTP (TLS eller SSL)."
+ phpmailer_username: "Brukernavnet som skal brukes når du sender e-post via SMTP."
+response:
+ Email successfully sent to %s: "E-post ble sendt til «%s» vellykket."
