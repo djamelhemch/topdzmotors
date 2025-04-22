@@ -495,6 +495,7 @@
                 const loadingIndicator = document.querySelector('.loading-indicator');
 
                 let carModel, rotationSpeed = 0.008, isRotating = false;
+                const modelCache = {};
 
                 const loader = new GLTFLoader();
                 const textureLoader = new THREE.TextureLoader();
@@ -528,7 +529,7 @@
                             $('.nice-select').niceSelect();
                         }, 50);
 
-                        const defaultModel = "mercedes_gls_580";
+                        const defaultModel = "2015_bmw_x5";
                         if (data.models.includes(defaultModel)) {
                             carSelector.value = defaultModel;
                             loadCar(defaultModel);
@@ -566,118 +567,198 @@
                         }, 50);
                         }
 
-                        function loadCar(modelName) {
-                            if (carModel) scene.remove(carModel);
-                            showLoading();
-
-                            loader.load(`models/${modelName}.glb`, (gltf) => {
-                                const loadedCar = gltf.scene;
-
-                                // Get bounding box
-                                const box = new THREE.Box3().setFromObject(loadedCar);
-                                const size = box.getSize(new THREE.Vector3());
-                                const center = box.getCenter(new THREE.Vector3());
-                                
-                                // Dynamic scaling: scale model to fit a target size (e.g., radius of 1.5 units)
-                                const maxDim = Math.max(size.x, size.y, size.z);
-                                const scale = 2 / maxDim;  // Adjust '3' as your desired target size
-                                loadedCar.scale.setScalar(scale);
-
-                                // Recalculate box and center after scaling
-                                const newBox = new THREE.Box3().setFromObject(loadedCar);
-                                const newCenter = newBox.getCenter(new THREE.Vector3());
-                                
-                                // Center model in all axes, especially Y (vertical)
-                                loadedCar.position.sub(newCenter);
-
-                                // Lift slightly to account for ground level
-                                loadedCar.position.y += newBox.getSize(new THREE.Vector3()).y / 2;
-
-                                loadedCar.position.x -= 0.45;
-                                // Wrap in group
-                                const carGroup = new THREE.Group();
-                                carGroup.add(loadedCar);
-                                carModel = carGroup;
-                                scene.add(carModel);
-                                // Create a pedestal  
-                                // const pedestalGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);  
-                                // const pedestalMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });  
-                                // const pedestal = new THREE.Mesh(pedestalGeometry, pedestalMaterial);  
-                                // pedestal.position.y = -0.05; // Adjust height as needed  
-                                // scene.add(pedestal);  
-                            
-                                // loading garage background  
-                                // const textureLoader = new THREE.TextureLoader();
-                                // textureLoader.load('textures/topdz_garage.png', (texture) => {
-                                //     texture.wrapS = THREE.RepeatWrapping;
-                                //     texture.wrapT = THREE.ClampToEdgeWrapping; // Don't stretch vertically
-                                //     texture.repeat.set(2, 1); // Repeat horizontally only
-
-                                //     const radius = 6;
-                                //     const height = 2.5;
-
-                                //     const garageGeometry = new THREE.CylinderGeometry(radius, radius, height, 64, 1, true);
-                                //     const garageMaterial = new THREE.MeshBasicMaterial({
-                                //         map: texture,
-                                //         side: THREE.BackSide,
-                                //     });
-
-                                //     const garageBackdrop = new THREE.Mesh(garageGeometry, garageMaterial);
-                                //     garageBackdrop.rotation.y = Math.PI; // Face open side toward camera
-                                //     garageBackdrop.position.y = height / 2;
-                                //     scene.add(garageBackdrop);
-                                // });
-
-                                //loading the floor texture
-                                textureLoader.load('textures/floor_concrete.jpg', (floorTexture) => {
-                                    floorTexture.wrapS = THREE.RepeatWrapping;
-                                    floorTexture.wrapT = THREE.RepeatWrapping;
-                                    floorTexture.repeat.set(4, 4);
-
-                                    const floorGeometry = new THREE.PlaneGeometry(10, 10);
-                                    const floorMaterial = new THREE.MeshStandardMaterial({ map: floorTexture });
-                                    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-                                    floor.rotation.x = -Math.PI / 2;
-                                    floor.position.y = -0.051;
-                                    scene.add(floor);
-                                });
-
-                                // Lighting  
-                                const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light  
+                        function loadCar(modelName) {  
+                            console.log(`Loading model: ${modelName}`);  
+                        
+                            // Remove previous model and dispose resources  
+                            if (carModel) {  
+                                console.log("Removing previous car model from scene and disposing resources.");  
+                                scene.remove(carModel);  
+                                carModel.traverse(child => {  
+                                    if (child.isMesh) {  
+                                        child.geometry.dispose();  
+                                        if (child.material.map) child.material.map.dispose();  
+                                        child.material.dispose();  
+                                    }  
+                                });  
+                                carModel = null;  
+                            }  
+                            showLoading();  
+                        
+                            // Use cached model if available  
+                            if (modelCache[modelName]) {  
+                                console.log(`Model found in cache: ${modelName}, adding to scene.`);  
+                                carModel = modelCache[modelName];  
+                                scene.add(carModel);  
+                                applyWrap(wrapSelector.value);  
+                                hideLoading();  
+                                return;  
+                            }  
+                        
+                            loader.load(`models/${modelName}.glb`, (gltf) => {  
+                                console.log(`Model loaded from file: ${modelName}.glb`);  
+                                const loadedCar = gltf.scene;  
+                        
+                                // Compute bounding box and size  
+                                const box = new THREE.Box3().setFromObject(loadedCar);  
+                                const size = box.getSize(new THREE.Vector3());  
+                                const center = box.getCenter(new THREE.Vector3());  
+                                console.log(`Original bounding box size: x=${size.x.toFixed(2)}, y=${size.y.toFixed(2)}, z=${size.z.toFixed(2)}`);  
+                                console.log(`Original bounding box center: x=${center.x.toFixed(2)}, y=${center.y.toFixed(2)}, z=${center.z.toFixed(2)}`);  
+                        
+                                // Scale model to fit target size (max dimension = 2 units)  
+                                const maxDim = Math.max(size.x, size.y, size.z);  
+                                const scale = 2 / maxDim;  
+                                loadedCar.scale.setScalar(scale);  
+                                console.log(`Scaling model by factor: ${scale.toFixed(3)}`);  
+                        
+                                // Recompute bounding box after scaling  
+                                const boxScaled = new THREE.Box3().setFromObject(loadedCar);  
+                                const centerScaled = boxScaled.getCenter(new THREE.Vector3());  
+                                const sizeScaled = boxScaled.getSize(new THREE.Vector3());  
+                                console.log(`Scaled bounding box size: x=${sizeScaled.x.toFixed(2)}, y=${sizeScaled.y.toFixed(2)}, z=${sizeScaled.z.toFixed(2)}`);  
+                                console.log(`Scaled bounding box center: x=${centerScaled.x.toFixed(2)}, y=${centerScaled.y.toFixed(2)}, z=${centerScaled.z.toFixed(2)}`);  
+                        
+                                // Model-specific offsets to fix positioning issues  
+                                const modelOffsets = {  
+                                    "mercedes_gls_580": { x: -0.5, y: -0.2, z: 0 },  
+                                    // "": { x: 0.1, y: 0, z: -0.05 },  
+                                    // Add more models here as needed  
+                                };  
+                                const offset = modelOffsets[modelName] || { x: 0, y: 0, z: 0 };  
+                                console.log(`Applying model offset: x=${offset.x}, y=${offset.y}, z=${offset.z}`);  
+                        
+                                // Center model at origin  
+                                loadedCar.position.x -= centerScaled.x;  
+                                loadedCar.position.y -= centerScaled.y;  
+                                loadedCar.position.z -= centerScaled.z;  
+                        
+                                // Lift model so it sits on ground (y=0)  
+                                loadedCar.position.y += sizeScaled.y / 2;  
+                        
+                                // Apply model-specific offset  
+                                loadedCar.position.x += offset.x;  
+                                loadedCar.position.y += offset.y;  
+                                loadedCar.position.z += offset.z;  
+                        
+                                console.log(`Position after centering and model offset: x=${loadedCar.position.x.toFixed(2)}, y=${loadedCar.position.y.toFixed(2)}, z=${loadedCar.position.z.toFixed(2)}`);  
+                        
+                                // Now apply portrait mode adjustments LAST  
+                                const isPortrait = window.innerHeight > window.innerWidth;  
+                        
+                                if (isPortrait) {  
+                                    console.log("Portrait mode detected: adjusting model scale and Y offset.");  
+                        
+                                    // Reduce scale by 20% for portrait  
+                                    const portraitScaleFactor = 0.8;  
+                                    loadedCar.scale.multiplyScalar(portraitScaleFactor);  
+                        
+                                    // Lift model higher to keep it fully visible  
+                                    loadedCar.position.y += sizeScaled.y * 0.6;  
+                                    loadedCar.position.x += sizeScaled.x * -0.2; // Adjust as needed  
+                        
+                                    console.log(`Position after portrait adjustment: x=${loadedCar.position.x.toFixed(2)}, y=${loadedCar.position.y.toFixed(2)}, z=${loadedCar.position.z.toFixed(2)}`);  
+                                } else {  
+                                    console.log("Landscape mode detected: using default scale and position.");  
+                                }  
+                        
+                                // Wrap in group for easier manipulation  
+                                const carGroup = new THREE.Group();  
+                                carGroup.add(loadedCar);  
+                                carModel = carGroup;  
+                                modelCache[modelName] = carGroup; // Cache loaded model  
+                                scene.add(carModel);  
+                                console.log("Model added to scene and cached.");  
+                        
+                                // Clear previous lights before adding new ones to avoid duplicates  
+                                const oldLights = scene.children.filter(child => child.isLight);  
+                                oldLights.forEach(light => {  
+                                    scene.remove(light);  
+                                    if (light.dispose) light.dispose();  
+                                });  
+                                console.log(`Removed ${oldLights.length} old lights.`);  
+                        
+                                // Improved lighting setup  
+                                const ambientLight = new THREE.AmbientLight(0x404040, 1.2); // Slightly stronger ambient  
                                 scene.add(ambientLight);  
-                            
-                                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);  
-                                directionalLight.position.set(5, 5, 5);  
-                                scene.add(directionalLight);
-
-
-                                // Set camera dynamically
-                                const viewer = document.querySelector(".model-viewer-container");
-                                console.log(viewer);
-                                const aspect = viewer.offsetWidth / viewer.offsetHeight;
-                                camera.aspect = aspect;
-                                camera.updateProjectionMatrix();
-                                
-                                const fov = camera.fov * (Math.PI / 180);
-                                const boundingRadius = newBox.getSize(new THREE.Vector3()).length() * 0.5;
-                                const distance = boundingRadius / Math.tan(fov / 2);
-
-                                camera.position.set(0, boundingRadius * 0.6, distance * 1.2); // Balanced Y and Z
-                                controls.target.set(0, 0, 0);
-                                controls.minDistance = distance * 0.5;
-                                controls.maxDistance = distance * 2.5;
-                                controls.update();
-                                
-                                
-                                applyWrap(wrapSelector.value);
-                                hideLoading();
-                            }, undefined, (error) => {
-                                console.error('Model load failed:', error);
-                                hideLoading();
-                            });
+                                console.log("Ambient light added.");  
+                        
+                                const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);  
+                                directionalLight.position.set(5, 10, 7);  
+                                directionalLight.castShadow = true;  
+                                directionalLight.shadow.mapSize.width = 1024;  
+                                directionalLight.shadow.mapSize.height = 1024;  
+                                directionalLight.shadow.camera.near = 0.5;  
+                                directionalLight.shadow.camera.far = 50;  
+                                scene.add(directionalLight);  
+                                console.log("Directional light added with shadows enabled.");  
+                        
+                                // Optional: add a subtle hemisphere light for better ambient effect  
+                                const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);  
+                                hemiLight.position.set(0, 20, 0);  
+                                scene.add(hemiLight);  
+                                console.log("Hemisphere light added.");  
+                        
+                                // Set camera dynamically based on model size and container aspect ratio  
+                                function updateCameraAndControls() {  
+                                    const viewer = document.querySelector(".model-viewer-container");  
+                                    const aspect = viewer.offsetWidth / viewer.offsetHeight;  
+                                    camera.aspect = aspect;  
+                                    camera.updateProjectionMatrix();  
+                        
+                                    const fov = camera.fov * (Math.PI / 180);  
+                                    const boundingRadius = sizeScaled.length() * 0.5;  
+                                    const distance = boundingRadius / Math.tan(fov / 2);  
+                        
+                                    camera.position.set(0, boundingRadius * 0.6, distance * 1.2);  
+                                    controls.target.set(0, 0, 0);  
+                                    controls.minDistance = distance * 0.5;  
+                                    controls.maxDistance = distance * 2.5;  
+                                    controls.update();  
+                        
+                                    console.log(`Camera positioned at x=0, y=${(boundingRadius * 0.6).toFixed(2)}, z=${(distance * 1.2).toFixed(2)}`);  
+                                }  
+                        
+                                updateCameraAndControls();  
+                        
+                                // Listen for window resize to update camera and optionally model adjustments  
+                                window.addEventListener('resize', () => {  
+                                    console.log("Window resized, updating camera and renderer.");  
+                                    camera.aspect = window.innerWidth / window.innerHeight;  
+                                    camera.updateProjectionMatrix();  
+                                    renderer.setSize(window.innerWidth, window.innerHeight);  
+                        
+                                    updateCameraAndControls();  
+                        
+                                    // Optional: re-apply portrait adjustments on resize  
+                                    const isPortraitResize = window.innerHeight > window.innerWidth;  
+                                    if (carModel) {  
+                                        const loadedCar = carModel.children[0]; // Assuming loadedCar is first child  
+                                        if (isPortraitResize) {  
+                                            loadedCar.scale.setScalar(scale * 0.8);  
+                                            loadedCar.position.y += sizeScaled.y * 0.6;  
+                                            loadedCar.position.x += sizeScaled.x * -0.2;  
+                                            console.log("Applied portrait adjustments on resize.");  
+                                        } else {  
+                                            loadedCar.scale.setScalar(scale);  
+                                            // Reset position to base centering + offset  
+                                            loadedCar.position.x = -centerScaled.x + offset.x;  
+                                            loadedCar.position.y = -centerScaled.y + sizeScaled.y / 2 + offset.y;  
+                                            loadedCar.position.z = -centerScaled.z + offset.z;  
+                                            console.log("Reset to landscape positioning on resize.");  
+                                        }  
+                                    }  
+                                });  
+                        
+                                applyWrap(wrapSelector.value);  
+                                hideLoading();  
+                                console.log("Wrap applied and loading indicator hidden.");  
+                            }, undefined, (error) => {  
+                                console.error('Model load failed:', error);  
+                                hideLoading();  
+                            });  
                         }
-
-
+                        
                 function applyWrap(wrapName) {
                     if (!carModel) return;
                     console.log(`Applying wrap: ${wrapName}`);
@@ -831,16 +912,22 @@
     }
     
     .loading-indicator {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18px;
-      color: #333;
-      display: none;
-      z-index: 10;
-    }
+        display: none; /* hidden by default */  
+        position: absolute; /* or relative to container */  
+        top: 50%;  
+        left: 50%;  
+        transform: translate(-50%, -50%);  
+        background: rgba(0,0,0,0.7);  
+        color: white;  
+        padding: 10px 20px;  
+        border-radius: 5px;  
+        font-weight: bold;  
+        z-index: 10;  
+        }
     
+    .loading-indicator.loading {  
+        display: block; /* show when 'loading' class is added */  
+    }
     .control-panel {
       flex: 3;
       background: #ffffff;
@@ -1129,7 +1216,7 @@
         <section class="main-footer">
             <div class="auto-container">
                 <div class="footer-top bg-color-2 clearfix">
-                    <figure class="footer-logo pull-left"><a href="index.html"><img src="assets/img/logo_white.webp" alt=""></a></figure>
+                    <figure class="footer-logo pull-left"><a href="index.html"><img src="assets/img/logo/logo_white_resized.svg" alt=""></a></figure>
                     <ul class="top-info pull-right">
                         <li>
                             <i class="fab fa-facebook-f"></i>
@@ -1153,7 +1240,7 @@
                                 <div class="text">
                                     <p>Lavage tous véhicules, brillance avec Wax ou Quick Wax, detailing (rayures, céramique), wrapping (covering, PPF, vitres teintées), et vente d’articles de detailing et parfums auto</p>
                                 </div>
-                                <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:amani.lahcene@gmail.com">amani.lahcene@gmail.com</a></div>
+                                <div class="email-box"><i class="far fa-envelope-open-text"></i><a href="mailto:support@gmail.com">support@gmail.com</a></div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
@@ -1164,11 +1251,11 @@
                                 <div class="widget-content">
                                     <ul class="links-list clearfix">
                                         <li><a href="index.html">Acceuil</a></li>
-                                        <li><a href="gallery.html">Galerie de photos</a></li>
                                         <li><a href="contact.html">Contactez-Nous</a></li>
+                                        
                                     </ul>
                                 </div>
-                             </div>
+                            </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
                             <div class="footer-widget links-widget ml-30">
@@ -1205,15 +1292,18 @@
                                 </div>
                             </div>
                         </div>
-                     </div>
+                    </div>
                 </div>
                 <div class="footer-bottom clearfix">
                     <div class="copyright pull-left">
-                        <p>Copyright &copy; 2025 <a href="index.html">Top Dz Motors</a>. Tous Droits Réserver.</p>
+                        <p>Copyright &copy; <span id="current-year"></span> <a href="index.html">Top Dz Motors</a>. Tous Droits Réserver.</p>
                     </div>
+                    <script>  
+                        document.getElementById('current-year').textContent = new Date().getFullYear();  
+                    </script>
                     <ul class="footer-social pull-right">
                         <li><a href="index.html"><i class="fab fa-facebook-f"></i>Facebook</a></li>
-                        <li><a href="index.html"><i class="fab fa-twitter"></i>Twitter</a></li>
+                        <li><a href="index.html"><i class="fa-brands fa-tiktok"></i>TikTok</a></li>
                         <li><a href="index.html"><i class="fab fa-youtube"></i>Youtube</a></li>
                         <li><a href="index.html"><i class="fab fa-instagram"></i>Instagram</a></li>
                     </ul>
