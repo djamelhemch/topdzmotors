@@ -445,7 +445,7 @@
                   
                       <div class="control-group">
                         <button id="rotateBtn">Rotation</button>
-                        <button id="resetBtn">Réinitialiser</button>
+                        
                       </div>
                   
                       <div class="control-group rotation-slider">
@@ -467,22 +467,46 @@
                 import * as THREE from "three";
                 import { GLTFLoader } from "https://unpkg.com/three@0.149.0/examples/jsm/loaders/GLTFLoader.js";
                 import { OrbitControls } from "https://unpkg.com/three@0.149.0/examples/jsm/controls/OrbitControls.js";
+                import { RGBELoader } from 'https://unpkg.com/three@0.149.0/examples/jsm/loaders/RGBELoader.js';
 
                 const scene = new THREE.Scene();
-                scene.background = new THREE.Color(0xA82C29);
+                scene.background = new THREE.Color(0x343434);
                 const canvas = document.getElementById("webgl");
-                const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const container = document.querySelector(".model-viewer-container");
+                const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
                 camera.position.set(0, 1, 3);
-                const renderer = new THREE.WebGLRenderer({ canvas });
-                renderer.setPixelRatio(window.devicePixelRatio);
-                renderer.setSize(window.innerWidth, window.innerHeight);
 
+                const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+                function updateRendererSize() {
+                    const width = container.clientWidth;
+                    const height = container.clientHeight;
+                    
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                    
+                    renderer.setSize(width, height, false);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                }
+
+                // Initial size setup
+                updateRendererSize();
+                
                 const controls = new OrbitControls(camera, canvas);
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.05;
                 controls.minDistance = 2;
                 controls.maxDistance = 12;
+                // Add these lines to restrict movement  
+                controls.enableRotate = true;        // Enable rotation  
+                controls.enableZoom = true;          // Keep zoom enabled  
+                controls.enablePan = false;
 
+                // Restrict to horizontal rotation only  
+                controls.minPolarAngle = Math.PI / 2; // Lock to 90 degrees  
+                controls.maxPolarAngle = Math.PI / 2; // Lock to 90 degrees
+                // Optional: Set initial position  
+                controls.update();
+                
                 const light = new THREE.HemisphereLight(0xffffff, 0x444444);
                 light.position.set(0, 20, 0);
                 scene.add(light);
@@ -491,10 +515,11 @@
                 const wrapSelector = document.getElementById("wrapSelector");
                 const speedSlider = document.getElementById("speedSlider");
                 const rotateBtn = document.getElementById("rotateBtn");
-                const resetBtn = document.getElementById("resetBtn");
+                rotateBtn.textContent = 'Pause';
+
                 const loadingIndicator = document.querySelector('.loading-indicator');
 
-                let carModel, rotationSpeed = 0.008, isRotating = false;
+                let carModel, rotationSpeed = 0.0024, isRotating = true;    
                 const modelCache = {};
 
                 const loader = new GLTFLoader();
@@ -511,254 +536,181 @@
                 }
 
                 showLoading();
-                fetch("data.php")  
+                fetch("data.php")
                     .then(res => {
                         console.log("Data fetched from PHP:", res);
                         return res.json();
-                    })  
-                    .then(data => {  
+                    })
+                    .then(data => {
                         console.log("Parsed data:", data);
                         if (data.models && data.wraps) {
-                        populateDropdown(carSelector, data.models);  
-                        populateDropdown(wrapSelector, data.wraps);  
+                            populateDropdown(carSelector, data.models);
+                            populateDropdown(wrapSelector, data.wraps);
 
-                        // Initialize nice-select after the dropdown is populated
-                        setTimeout(() => {
-                            // Re-initialize nice-select after populating the options
-                            $('.nice-select').niceSelect('destroy');
-                            $('.nice-select').niceSelect();
-                        }, 50);
+                            setTimeout(() => {
+                                $('.nice-select').niceSelect('destroy');
+                                $('.nice-select').niceSelect();
+                            }, 50);
 
-                        const defaultModel = "2015_bmw_x5";
-                        if (data.models.includes(defaultModel)) {
-                            carSelector.value = defaultModel;
-                            loadCar(defaultModel);
-                            console.log(`Loading default model: ${defaultModel}`);
-                        } else if (data.models.length) {
-                            carSelector.value = data.models[0];
-                            loadCar(data.models[0]);
-                            console.log(`Loading fallback model: ${data.models[0]}`);
-                        }
+                            const defaultModel = "2015_bmw_x5";
+                            if (data.models.includes(defaultModel)) {
+                                carSelector.value = defaultModel;
+                                loadCar(defaultModel);
+                                console.log(`Loading default model: ${defaultModel}`);
+                            } else if (data.models.length) {
+                                carSelector.value = data.models[0];
+                                loadCar(data.models[0]);
+                                console.log(`Loading fallback model: ${data.models[0]}`);
+                            }
                         } else {
-                        console.error('Invalid data format:', data);
+                            console.error('Invalid data format:', data);
                         }
-                        hideLoading();  
-                    })  
-                    .catch(error => {  
-                        console.error('Fetch error:', error);  
-                        hideLoading();  
+                        hideLoading();
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        hideLoading();
                     });
 
-                    function populateDropdown(selectEl, items) {
-                        selectEl.innerHTML = ''; // Clear existing options  
-                        items.forEach(item => {  
-                            const option = document.createElement('option');  
-                            option.value = item;  
-                            option.textContent = item;  
-                            selectEl.appendChild(option);  
-                        });  
+                function populateDropdown(selectEl, items) {
+                    selectEl.innerHTML = '';
+                    items.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item;
+                        option.textContent = item;
+                        selectEl.appendChild(option);
+                    });
 
-                        console.log(`Populated dropdown with items: ${items}`);
+                    console.log(`Populated dropdown with items: ${items}`);
 
-                        // Ensure nice-select is initialized properly
-                        setTimeout(() => {
-                            $(selectEl).niceSelect('destroy');
-                            $(selectEl).niceSelect();
-                        }, 50);
+                    setTimeout(() => {
+                        $(selectEl).niceSelect('destroy');
+                        $(selectEl).niceSelect();
+                    }, 50);
+                }
+
+                function loadCar(modelName) {
+                    console.log(`Loading model: ${modelName}`);
+
+                    if (carModel) {
+                        console.log("Removing previous car model from scene and disposing resources.");
+                        scene.remove(carModel);
+                        carModel.traverse(child => {
+                            if (child.isMesh) {
+                                child.geometry.dispose();
+                                if (child.material.map) child.material.map.dispose();
+                                child.material.dispose();
+                            }
+                        });
+                        carModel = null;
+                    }
+                    showLoading();
+
+                    if (modelCache[modelName]) {
+                        console.log(`Model found in cache: ${modelName}, adding to scene.`);
+                        carModel = modelCache[modelName];
+                        scene.add(carModel);
+                        applyWrap(wrapSelector.value);
+                        hideLoading();
+                        return;
+                    }
+
+                    loader.load(`models/${modelName}.glb`, (gltf) => {
+                        console.log(`Model loaded from file: ${modelName}.glb`);
+                        const loadedCar = gltf.scene;
+
+                        const box = new THREE.Box3().setFromObject(loadedCar);
+                        const size = box.getSize(new THREE.Vector3());
+                        const center = box.getCenter(new THREE.Vector3());
+
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const scale = 2 / maxDim;
+                        loadedCar.scale.setScalar(scale);
+
+                        const boxScaled = new THREE.Box3().setFromObject(loadedCar);
+                        const centerScaled = boxScaled.getCenter(new THREE.Vector3());
+                        const sizeScaled = boxScaled.getSize(new THREE.Vector3());
+
+                        const modelOffsets = {
+                            "mercedes_gls_580": { x: -0.5, y: -0.2, z: 0 },
+                            "gls580": { x: 0, y: 0, z: 0 },
+                        };
+                        const offset = modelOffsets[modelName] || { x: 0, y: 0, z: 0 };
+
+                        loadedCar.position.x = -centerScaled.x + offset.x;
+                        loadedCar.position.y = -centerScaled.y + sizeScaled.y / 2 + offset.y;
+                        loadedCar.position.z = -centerScaled.z + offset.z;
+
+                        const isPortrait = container.clientHeight > container.clientWidth;
+
+                        if (isPortrait) {
+                            const portraitScaleFactor = 0.8;
+                            loadedCar.scale.multiplyScalar(portraitScaleFactor);
+                            loadedCar.position.y += sizeScaled.y * 0.6;
+                            loadedCar.position.x += sizeScaled.x * -0.2;
                         }
 
-                        function loadCar(modelName) {  
-                            console.log(`Loading model: ${modelName}`);  
+                        const carGroup = new THREE.Group();
+                        carGroup.add(loadedCar);
+                        carModel = carGroup;
+                        modelCache[modelName] = carGroup;
+                        scene.add(carModel);
+
+                        // Lighting setup
+                        const oldLights = scene.children.filter(child => child.isLight);
+                        oldLights.forEach(light => {
+                            scene.remove(light);
+                            if (light.dispose) light.dispose();
+                        });
+
+                        const ambientLight = new THREE.AmbientLight(0x404040, 1.2);
+                        scene.add(ambientLight);
+
+                        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+                        directionalLight.position.set(5, 10, 7);
+                        directionalLight.castShadow = true;
+                        directionalLight.shadow.mapSize.width = 1024;
+                        directionalLight.shadow.mapSize.height = 1024;
+                        directionalLight.shadow.camera.near = 0.5;
+                        directionalLight.shadow.camera.far = 50;
+                        scene.add(directionalLight);
+
+                        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+                        hemiLight.position.set(0, 20, 0);
+                        scene.add(hemiLight);
+
+                        function updateCameraAndControls() {  
+                            const aspect = container.clientWidth / container.clientHeight;  
+                            camera.aspect = aspect;  
+                            camera.updateProjectionMatrix();  
                         
-                            // Remove previous model and dispose resources  
-                            if (carModel) {  
-                                console.log("Removing previous car model from scene and disposing resources.");  
-                                scene.remove(carModel);  
-                                carModel.traverse(child => {  
-                                    if (child.isMesh) {  
-                                        child.geometry.dispose();  
-                                        if (child.material.map) child.material.map.dispose();  
-                                        child.material.dispose();  
-                                    }  
-                                });  
-                                carModel = null;  
-                            }  
-                            showLoading();  
+                            const fov = camera.fov * (Math.PI / 180);  
+                            const boundingRadius = sizeScaled.length() * 0.5;  
+                            const distance = boundingRadius / Math.tan(fov / 2);  
                         
-                            // Use cached model if available  
-                            if (modelCache[modelName]) {  
-                                console.log(`Model found in cache: ${modelName}, adding to scene.`);  
-                                carModel = modelCache[modelName];  
-                                scene.add(carModel);  
-                                applyWrap(wrapSelector.value);  
-                                hideLoading();  
-                                return;  
-                            }  
-                        
-                            loader.load(`models/${modelName}.glb`, (gltf) => {  
-                                console.log(`Model loaded from file: ${modelName}.glb`);  
-                                const loadedCar = gltf.scene;  
-                        
-                                // Compute bounding box and size  
-                                const box = new THREE.Box3().setFromObject(loadedCar);  
-                                const size = box.getSize(new THREE.Vector3());  
-                                const center = box.getCenter(new THREE.Vector3());  
-                                console.log(`Original bounding box size: x=${size.x.toFixed(2)}, y=${size.y.toFixed(2)}, z=${size.z.toFixed(2)}`);  
-                                console.log(`Original bounding box center: x=${center.x.toFixed(2)}, y=${center.y.toFixed(2)}, z=${center.z.toFixed(2)}`);  
-                        
-                                // Scale model to fit target size (max dimension = 2 units)  
-                                const maxDim = Math.max(size.x, size.y, size.z);  
-                                const scale = 2 / maxDim;  
-                                loadedCar.scale.setScalar(scale);  
-                                console.log(`Scaling model by factor: ${scale.toFixed(3)}`);  
-                        
-                                // Recompute bounding box after scaling  
-                                const boxScaled = new THREE.Box3().setFromObject(loadedCar);  
-                                const centerScaled = boxScaled.getCenter(new THREE.Vector3());  
-                                const sizeScaled = boxScaled.getSize(new THREE.Vector3());  
-                                console.log(`Scaled bounding box size: x=${sizeScaled.x.toFixed(2)}, y=${sizeScaled.y.toFixed(2)}, z=${sizeScaled.z.toFixed(2)}`);  
-                                console.log(`Scaled bounding box center: x=${centerScaled.x.toFixed(2)}, y=${centerScaled.y.toFixed(2)}, z=${centerScaled.z.toFixed(2)}`);  
-                        
-                                // Model-specific offsets to fix positioning issues  
-                                const modelOffsets = {  
-                                    "mercedes_gls_580": { x: -0.5, y: -0.2, z: 0 },  
-                                    // "": { x: 0.1, y: 0, z: -0.05 },  
-                                    // Add more models here as needed  
-                                };  
-                                const offset = modelOffsets[modelName] || { x: 0, y: 0, z: 0 };  
-                                console.log(`Applying model offset: x=${offset.x}, y=${offset.y}, z=${offset.z}`);  
-                        
-                                // Center model at origin  
-                                loadedCar.position.x -= centerScaled.x;  
-                                loadedCar.position.y -= centerScaled.y;  
-                                loadedCar.position.z -= centerScaled.z;  
-                        
-                                // Lift model so it sits on ground (y=0)  
-                                loadedCar.position.y += sizeScaled.y / 2;  
-                        
-                                // Apply model-specific offset  
-                                loadedCar.position.x += offset.x;  
-                                loadedCar.position.y += offset.y;  
-                                loadedCar.position.z += offset.z;  
-                        
-                                console.log(`Position after centering and model offset: x=${loadedCar.position.x.toFixed(2)}, y=${loadedCar.position.y.toFixed(2)}, z=${loadedCar.position.z.toFixed(2)}`);  
-                        
-                                // Now apply portrait mode adjustments LAST  
-                                const isPortrait = window.innerHeight > window.innerWidth;  
-                        
-                                if (isPortrait) {  
-                                    console.log("Portrait mode detected: adjusting model scale and Y offset.");  
-                        
-                                    // Reduce scale by 20% for portrait  
-                                    const portraitScaleFactor = 0.8;  
-                                    loadedCar.scale.multiplyScalar(portraitScaleFactor);  
-                        
-                                    // Lift model higher to keep it fully visible  
-                                    loadedCar.position.y += sizeScaled.y * 0.6;  
-                                    loadedCar.position.x += sizeScaled.x * -0.2; // Adjust as needed  
-                        
-                                    console.log(`Position after portrait adjustment: x=${loadedCar.position.x.toFixed(2)}, y=${loadedCar.position.y.toFixed(2)}, z=${loadedCar.position.z.toFixed(2)}`);  
-                                } else {  
-                                    console.log("Landscape mode detected: using default scale and position.");  
-                                }  
-                        
-                                // Wrap in group for easier manipulation  
-                                const carGroup = new THREE.Group();  
-                                carGroup.add(loadedCar);  
-                                carModel = carGroup;  
-                                modelCache[modelName] = carGroup; // Cache loaded model  
-                                scene.add(carModel);  
-                                console.log("Model added to scene and cached.");  
-                        
-                                // Clear previous lights before adding new ones to avoid duplicates  
-                                const oldLights = scene.children.filter(child => child.isLight);  
-                                oldLights.forEach(light => {  
-                                    scene.remove(light);  
-                                    if (light.dispose) light.dispose();  
-                                });  
-                                console.log(`Removed ${oldLights.length} old lights.`);  
-                        
-                                // Improved lighting setup  
-                                const ambientLight = new THREE.AmbientLight(0x404040, 1.2); // Slightly stronger ambient  
-                                scene.add(ambientLight);  
-                                console.log("Ambient light added.");  
-                        
-                                const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);  
-                                directionalLight.position.set(5, 10, 7);  
-                                directionalLight.castShadow = true;  
-                                directionalLight.shadow.mapSize.width = 1024;  
-                                directionalLight.shadow.mapSize.height = 1024;  
-                                directionalLight.shadow.camera.near = 0.5;  
-                                directionalLight.shadow.camera.far = 50;  
-                                scene.add(directionalLight);  
-                                console.log("Directional light added with shadows enabled.");  
-                        
-                                // Optional: add a subtle hemisphere light for better ambient effect  
-                                const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);  
-                                hemiLight.position.set(0, 20, 0);  
-                                scene.add(hemiLight);  
-                                console.log("Hemisphere light added.");  
-                        
-                                // Set camera dynamically based on model size and container aspect ratio  
-                                function updateCameraAndControls() {  
-                                    const viewer = document.querySelector(".model-viewer-container");  
-                                    const aspect = viewer.offsetWidth / viewer.offsetHeight;  
-                                    camera.aspect = aspect;  
-                                    camera.updateProjectionMatrix();  
-                        
-                                    const fov = camera.fov * (Math.PI / 180);  
-                                    const boundingRadius = sizeScaled.length() * 0.5;  
-                                    const distance = boundingRadius / Math.tan(fov / 2);  
-                        
-                                    camera.position.set(0, boundingRadius * 0.6, distance * 1.2);  
-                                    controls.target.set(0, 0, 0);  
-                                    controls.minDistance = distance * 0.5;  
-                                    controls.maxDistance = distance * 2.5;  
-                                    controls.update();  
-                        
-                                    console.log(`Camera positioned at x=0, y=${(boundingRadius * 0.6).toFixed(2)}, z=${(distance * 1.2).toFixed(2)}`);  
-                                }  
-                        
-                                updateCameraAndControls();  
-                        
-                                // Listen for window resize to update camera and optionally model adjustments  
-                                window.addEventListener('resize', () => {  
-                                    console.log("Window resized, updating camera and renderer.");  
-                                    camera.aspect = window.innerWidth / window.innerHeight;  
-                                    camera.updateProjectionMatrix();  
-                                    renderer.setSize(window.innerWidth, window.innerHeight);  
-                        
-                                    updateCameraAndControls();  
-                        
-                                    // Optional: re-apply portrait adjustments on resize  
-                                    const isPortraitResize = window.innerHeight > window.innerWidth;  
-                                    if (carModel) {  
-                                        const loadedCar = carModel.children[0]; // Assuming loadedCar is first child  
-                                        if (isPortraitResize) {  
-                                            loadedCar.scale.setScalar(scale * 0.8);  
-                                            loadedCar.position.y += sizeScaled.y * 0.6;  
-                                            loadedCar.position.x += sizeScaled.x * -0.2;  
-                                            console.log("Applied portrait adjustments on resize.");  
-                                        } else {  
-                                            loadedCar.scale.setScalar(scale);  
-                                            // Reset position to base centering + offset  
-                                            loadedCar.position.x = -centerScaled.x + offset.x;  
-                                            loadedCar.position.y = -centerScaled.y + sizeScaled.y / 2 + offset.y;  
-                                            loadedCar.position.z = -centerScaled.z + offset.z;  
-                                            console.log("Reset to landscape positioning on resize.");  
-                                        }  
-                                    }  
-                                });  
-                        
-                                applyWrap(wrapSelector.value);  
-                                hideLoading();  
-                                console.log("Wrap applied and loading indicator hidden.");  
-                            }, undefined, (error) => {  
-                                console.error('Model load failed:', error);  
-                                hideLoading();  
-                            });  
+                            // Set camera to a fixed height and distance  
+                            camera.position.set(0, boundingRadius * 0.6, distance * 1.2);  
+                            controls.target.set(0, boundingRadius * 0.3, 0);  
+                            controls.minDistance = distance * 0.5;  
+                            controls.maxDistance = distance * 2.5;  
+                            
+                            // Ensure camera stays at the same height  
+                            controls.minPolarAngle = Math.PI / 2;  
+                            controls.maxPolarAngle = Math.PI / 2;  
+                            
+                            controls.update();  
+                            updateRendererSize();  
                         }
-                        
+
+                        updateCameraAndControls();
+                        applyWrap(wrapSelector.value);
+                        hideLoading();
+                    }, undefined, (error) => {
+                        console.error('Model load failed:', error);
+                        hideLoading();
+                    });
+                }
+
                 function applyWrap(wrapName) {
                     if (!carModel) return;
                     console.log(`Applying wrap: ${wrapName}`);
@@ -773,110 +725,73 @@
                     });
                 }
 
-                function animate() {
-                    requestAnimationFrame(animate);
-                    if (carModel && isRotating) {
-                        carModel.rotation.y += rotationSpeed;
-                    }
-                    controls.update();
-                    renderer.render(scene, camera);
+                function animate() {  
+                    requestAnimationFrame(animate);  
+                    if (carModel && isRotating) {  
+                        carModel.rotation.y += rotationSpeed * 0.3; // This is correct for horizontal rotation  
+                    }  
+                    controls.update();  
+                    renderer.render(scene, camera);  
                 }
 
                 rotateBtn.addEventListener('click', () => {
                     isRotating = !isRotating;
                     rotateBtn.textContent = isRotating ? 'Pause' : 'Rotate';
-                    console.log(`Rotation toggled: ${isRotating}`);
                 });
 
-                resetBtn.addEventListener('click', () => {
-                    if (!carModel) return;
 
-                    // Reset model rotation
-                    carModel.rotation.set(0, 0, 0);
-
-                    // Reset camera using same logic as loadCar
-                    const box = new THREE.Box3().setFromObject(carModel);
-                    const size = box.getSize(new THREE.Vector3());
-                    const fov = camera.fov * (Math.PI / 180);
-                    const modelRadius = size.length() * 0.5;
-                    const distance = modelRadius / Math.sin(fov / 2);
-
-                    camera.position.set(0, size.y * 0.5, distance * 0.8);
-                    controls.target.set(0, 0, 0);
-                    controls.update();
-
-                    console.log("Model and camera reset to default position.");
-                });
 
                 speedSlider.addEventListener('input', () => {
                     rotationSpeed = parseFloat(speedSlider.value);
-                    console.log(`Rotation speed set to: ${rotationSpeed}`);
                 });
 
                 window.addEventListener('resize', () => {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    console.log("Window resized, updated camera and renderer.");
-                });
-
-                // Touch controls
-                let touchStartX, touchStartY;
-                canvas.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                    touchStartY = e.touches[0].clientY;
-                    console.log("Touch started.");
-                });
-
-                canvas.addEventListener('touchmove', (e) => {
-                    if (e.touches.length === 1) {
-                        const dx = e.touches[0].clientX - touchStartX;
-                        const dy = e.touches[0].clientY - touchStartY;
-                        carModel.rotation.y += dx * 0.005;
-                        carModel.rotation.x += dy * 0.005;
-                        touchStartX = e.touches[0].clientX;
-                        touchStartY = e.touches[0].clientY;
-                        console.log("Touch moved, model rotated.");
-                    }
-                });
-                canvas.addEventListener('resize', () => {
-                    // Update camera aspect ratio
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-
-                    // Update the renderer size
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-
-                    console.log("Window resized, updated camera and renderer.");
-
-                    // Recalculate car model positioning based on new window size
+                    updateRendererSize();
+                    
                     if (carModel) {
+                        const aspect = container.clientWidth / container.clientHeight;
+                        camera.aspect = aspect;
+                        camera.updateProjectionMatrix();
+                        
                         const box = new THREE.Box3().setFromObject(carModel);
                         const size = box.getSize(new THREE.Vector3());
                         const fov = camera.fov * (Math.PI / 180);
                         const distance = size.length() / (2 * Math.tan(fov / 2));
-                        camera.position.set(0, size.y, distance * 1.2);  // Update camera position
+                        
+                        camera.position.set(0, size.y * 0.5, distance * 1.2);
+                        controls.target.set(0, size.y * 0.3, 0);
+                        controls.update();
                     }
                 });
-                // Initialize
 
-                animate();
+                                // Touch controls  
+                                let touchStartX, touchStartY;  
+                                canvas.addEventListener('touchstart', (e) => {  
+                                    touchStartX = e.touches[0].clientX;  
+                                });  
+                                
+                                canvas.addEventListener('touchmove', (e) => {  
+                                    if (e.touches.length === 1) {  
+                                        const dx = e.touches[0].clientX - touchStartX;  
+                                        // Only update Y rotation (horizontal movement)  
+                                        carModel.rotation.y += dx * 0.005;  
+                                        touchStartX = e.touches[0].clientX;  
+                                    }  
+                                });
 
-                $('#carSelector').on('change', function () {
-                    const selectedModel = $(this).val();
-                    console.log(`Car selector changed: ${selectedModel}`);
-                    loadCar(selectedModel);
-                });
+                                $('#carSelector').on('change', function () {
+                                    const selectedModel = $(this).val();
+                                    loadCar(selectedModel);
+                                });
 
-                $('#wrapSelector').on('change', function () {
-                    const selectedWrap = $(this).val();
-                    console.log(`Wrap selector changed: ${selectedWrap}`);
-                    applyWrap(selectedWrap);
-                });
-                console.log("Renderer size:", renderer.domElement.width, renderer.domElement.height);
-                console.log("Canvas size:", canvas.offsetWidth, canvas.offsetHeight);
-                console.log("Camera position:", camera.position);
-                console.log("Scene children:", scene.children);
+                                $('#wrapSelector').on('change', function () {
+                                    const selectedWrap = $(this).val();
+                                    applyWrap(selectedWrap);
+                                });
+
+                                // Start animation loop
+                                animate();
+
             </script>
 
 <style>
