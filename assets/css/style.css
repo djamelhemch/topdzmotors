@@ -5791,10 +5791,11 @@ div#mCSB_1_container{
 
 .service-details-content .inner .list-item li{
   position: relative;
-  display: inline-block;
+  /*display: inline-block;*/
   line-height: 32px;
-  margin-bottom: 15px;
+  margin-bottom: 35px;
   padding-left: 70px;
+  font-size: 1.25rem;
 }
 
 .service-details-content .inner .list-item li:last-child{
@@ -5813,7 +5814,7 @@ div#mCSB_1_container{
   text-align: center;
   border-radius: 50%;
   left: 0px;
-  top: 8px;
+  top: -8px;
 }
 
 .service-details-content .two-column .image-box{
