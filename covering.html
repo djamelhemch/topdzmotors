@@ -748,11 +748,13 @@
                     const fov = camera.fov * (Math.PI / 180);
                     const boundingRadius = sizeScaled.length() * 0.5;
                     const distance = boundingRadius / Math.tan(fov / 2);
-
-                    camera.position.set(0, boundingRadius * 0.6, distance * 1.2);
+                    // Adjust camera position for initial zoom
+                    camera.position.set(0, boundingRadius * 0.6, distance * 1.0); // Changed from 1.2 to 1.0
                     controls.target.set(0, boundingRadius * 0.3, 0);
-                    controls.minDistance = distance * 0.5;
-                    controls.maxDistance = distance * 2.5;
+
+                    // Reduce min and max zoom amounts
+                    controls.minDistance = distance * 0.8; // zoom-in values
+                    controls.maxDistance = distance * 1.1; // zoom-out values
                     
                     controls.minPolarAngle = Math.PI / 2;
                     controls.maxPolarAngle = Math.PI / 2;
